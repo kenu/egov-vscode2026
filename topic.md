@@ -22,7 +22,7 @@
 | nippyclouding | [8](https://github.com/kenu/egov-vscode2026/issues/8) | eGovFrame 표준 프레임워크와 MyBatis/JPA 혼용 전략 | open |
 | simuneu | [7](https://github.com/kenu/egov-vscode2026/issues/7) | Annotation Processor 문제 해결: Lombok과 MapStruct 연동 시 주의사항 | open |
 | gurum505 | [6](https://github.com/kenu/egov-vscode2026/issues/6) | 의존성 지옥 탈출: mvn dependency:tree로 충돌 해결하기 | open |
-| kenu | [5](https://github.com/kenu/egov-vscode2026/issues/5) | Maven Profile을 활용한 환경별(Dev/Staging/Prod) 설정 분리 | closed |
+| kenu | [5](https://github.com/kenu/egov-vscode2026/issues/5) | [Maven Profile을 활용한 환경별(Dev/Staging/Prod) 설정 분리](./maven-profile-presentation.md) | closed |
 | blueoxygens | [4](https://github.com/kenu/egov-vscode2026/issues/4) | Log4j2/Logback 설정: 운영 환경에서의 로그 관리 전략 | open |
 | ssseft | [3](https://github.com/kenu/egov-vscode2026/issues/3) | Git Hook(Husky)을 활용한 Commit 전 Maven Test 강제화 | open |
 | GithubKangMin | [2](https://github.com/kenu/egov-vscode2026/issues/2) | DB 커넥션 풀(HikariCP) 최적화 설정 가이드 | closed |
