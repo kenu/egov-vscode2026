@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  GitHub Actions 데모용  Maven 프로젝트
+
+  Spring Boot 같은 무거운 의존성은 넣지 않았습니다(시간 단축)
+
+  로컬에서 한 번 돌려보려면:
+    cd github-actions-maven-pr-check
+    mvn clean verify
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.example</groupId>
+    <artifactId>github-actions-maven-pr-check</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>5.10.2</junit.version>
+    </properties>
+
+    <dependencies>
+        <!-- 테스트 프레임워크: JUnit5.
+             surefire 플러그인이 mvn verify 단계에서 이 부분을 자동으로 인식해서 테스트를 돌려줌. -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- surefire 3.x 가 필요한 이유:
+                 2.x 까지는 JUnit5 를 못 알아봐서 테스트가 0개로 인식.
+                 즉 CI는 통과처럼 보이는데 사실 테스트가 0개 돌아가는 문제 발생. 3.0+ 로 사용 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
