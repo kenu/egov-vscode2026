@@ -14,7 +14,7 @@
 | AhnHyunju | [18](https://github.com/kenu/egov-vscode2026/issues/18) | Pull Request를 작성하기: Reviewer를 참여시키는 PR 폴더 | open |
 | soohyun1904 | [17](https://github.com/kenu/egov-vscode2026/issues/17) | Spring Boot Executable Jar vs Standard WAR 빌드 차이점 | close |
 | EZRANDO | [16](https://github.com/kenu/egov-vscode2026/issues/16) | Maven Lifecycle 완벽 이해: clean부터 deploy까지의 흐름 | open |
-| GyeonghwaKim | [15](https://github.com/kenu/egov-vscode2026/issues/15) | eGovFrame 기반 RESTful API 설계 및 Swagger 연동 | open |
+| GyeonghwaKim | [15](https://github.com/kenu/egov-vscode2026/issues/15) | [eGovFrame 기반 RESTful API 설계 및 Swagger 연동](./restfulapi-swagger/restfulapi-swagger.md) | open |
 | romdyfo | [14](https://github.com/kenu/egov-vscode2026/issues/14) | Spring Security와 eGovFrame 권한 관리 시스템 통합 | open |
 | dovob213 | [13](https://github.com/kenu/egov-vscode2026/issues/13) | [GitHub Actions를 활용한 Maven 빌드 및 자동 PR 체크 시스템 구축](./github-actions-maven-pr-check.md) | closed |
 | byeongjuPark | [12](https://github.com/kenu/egov-vscode2026/issues/12) | Spring Boot Extension Pack 200% 활용법: VS Code 필수 확장 프로그램 | open |
