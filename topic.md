@@ -1,5 +1,6 @@
 | GitHub ID | 이슈번호 | 주제 | 상태 |
 |---|---|---|---|
+| kenu | [??]() | VS Code Extension Getting Started Guide | open |
 | ParkJunGyu26 | [27](https://github.com/kenu/egov-vscode2026/issues/27) | Spring Batch와 eGovFrame을 활용한 대용량 데이터 처리 | open |
 | iey704 | [26](https://github.com/kenu/egov-vscode2026/issues/26) | [Linting & Formatting: Checkstyle과 Prettier로 협업 규칙 자동화하기](./linting-formatting-checkstyle-prettier.md) | closed |
 | Rockernun | [25](https://github.com/kenu/egov-vscode2026/issues/25) | DB 커넥션 풀(HikariCP) 최적화 설정 가이드 | open |
