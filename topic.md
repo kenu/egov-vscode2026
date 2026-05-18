@@ -19,7 +19,7 @@
 | dovob213 | [13](https://github.com/kenu/egov-vscode2026/issues/13) | [GitHub Actions를 활용한 Maven 빌드 및 자동 PR 체크 시스템 구축](./github-actions-maven-pr-check.md) | closed |
 | byeongjuPark | [12](https://github.com/kenu/egov-vscode2026/issues/12) | Spring Boot Extension Pack 200% 활용법: VS Code 필수 확장 프로그램 | open |
 | Rockernun | [11](https://github.com/kenu/egov-vscode2026/issues/11) | [Spring Bean 순환 참조(Circular Dependency) 해결 사례](spring-bean-circular-reference.md) | open |
-| JBumLee | [10](https://github.com/kenu/egov-vscode2026/issues/10) | Validation 프레임워크 활용: @Valid와 BindingResult 처리 | open |
+| JBumLee | [10](https://github.com/kenu/egov-vscode2026/issues/10) | eGovFrame 5.0(Spring Boot 기반) 마이그레이션 가이드 | open |
 | songhyeongyu | [9](https://github.com/kenu/egov-vscode2026/issues/9) | Java Heap Dump 분석: eGovFrame 애플리케이션 메모리 누수 잡기 | open |
 | nippyclouding | [8](https://github.com/kenu/egov-vscode2026/issues/8) | [eGovFrame 표준 프레임워크와 MyBatis/JPA 혼용 전략](./egovframe-vscode-MyBatis-JPA.md) | open |
 | simuneu | [7](https://github.com/kenu/egov-vscode2026/issues/7) | Annotation Processor 문제 해결: Lombok과 MapStruct 연동 시 주의사항 | open |
