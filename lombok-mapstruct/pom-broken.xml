@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ❌ 잘못된 설정 — annotationProcessorPaths 가 빠져 있다.
+
+  증상:
+    • IDE 에서는 잘 보인다 (자동완성 OK)
+    • mvn clean compile 돌리면 빌드가 깨진다
+    • "Unknown property 'memberNm' in type MemberVO"
+
+  원인:
+    • Lombok 과 MapStruct 가 같은 컴파일 사이클에서 도는데
+      누가 먼저 도느냐가 보장되지 않는다.
+    • MapStruct 가 먼저 돌면 Lombok 이 만든 getMemberNm() 을 못 본다.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>egovframework</groupId>
+    <artifactId>sample</artifactId>
+    <version>1.0.0</version>
+
+    <properties>
+        <java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <lombok.version>1.18.32</lombok.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+
+                    <annotationProcessorPaths>
+                        <!-- Lombok 등록됨 -->
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+
+                        <!-- ⚠️ lombok-mapstruct-binding 이 여기 빠져있다 -->
+
+                        <!-- MapStruct 등록됨 -->
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
