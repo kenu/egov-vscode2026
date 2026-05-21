@@ -48,82 +48,63 @@
 *   **Hibernate 6.x:** 쿼리 생성 방식과 성능 최적화가 이루어졌습니다.
 *   **Spring Security 6.x:** 설정 방식이 `WebSecurityConfigurerAdapter` 상속 방식에서 컴포넌트 기반(Lambda식) 설정으로 완전히 변경되었습니다.
 
-## 3. 마이그레이션 실전 전략: 단계별 가이드
+## 3. [핵심] 실전 마이그레이션 여정: 4.3 MVC에서 5.0 Boot로
 
-성공적인 마이그레이션을 위한 체크리스트와 단계별 수행 절차입니다.
+실제 현장에서 가장 많이 쓰이는 **eGovFrame 4.3 (Spring MVC, WAR, Java 8)** 기반의 구형 프로젝트를 **eGovFrame 5.0 (Spring Boot 3.x, JAR, Java 21)**로 직접 마이그레이션하며 겪은 생생한 에러와 해결 과정(Modernization)을 정리했습니다.
 
-### 3.1 1단계: 환경 점검 및 빌드 도구 최신화
-*   **JDK 설치:** 최소 Java 17이 필요하며, 가상 스레드 활용을 위해 **Java 21** 설치를 강력히 권장합니다.
-*   **Maven 버전:** Maven 3.6.3 이상이 필요하며, 최신 플러그인 호환성을 위해 **3.8.x 이상**을 권장합니다.
-*   **IDE 설정:** VS Code를 사용하는 경우, `Language Support for Java` 확장이 최신 버전인지 확인합니다.
+### 3.1 1단계: 빌드 환경 최신화 (pom.xml 수술)
+가장 먼저 프로젝트의 엔진을 교체하는 과정입니다. 기존의 메타데이터(라이선스, 기존 라이브러리)는 유지하되, **최소한의 필수 설정만 핀포인트로 수정**했습니다.
 
-### 3.2 2단계: `pom.xml` 의존성 및 버전 업데이트
-가장 먼저 프로젝트의 심장인 빌드 설정부터 수정해야 합니다.
-*   **eGovFrame 버전 상향:** `<egovframework.rte.version>5.0.0</egovframework.rte.version>`
-*   **Artifact ID 명명 규칙 변경 (주의):** 5.0.0부터 라이브러리 식별자 형식이 점(`.`)에서 하이픈(`-`)으로 변경되었습니다.
-    *   예: `org.egovframe.rte.ptl.mvc` -> **`egovframe-rte-ptl-mvc`**
-    *   이 부분을 수정하지 않으면 라이브러리를 찾지 못해 빌드 에러가 발생합니다.
-*   **Spring Boot Starters:** eGovFrame에서 제공하는 `egovframe-boot-starter-*` 의존성들이 Spring Boot 3.x와 호환되도록 업데이트되었는지 확인합니다.
-*   **외부 라이브러리 체크:** `lombok`, `mapstruct`, `querydsl` 등 Jakarta EE를 지원하는 버전으로 모두 상향해야 합니다.
+1.  **Spring Boot 엔진 장착:** `<parent>`에 `spring-boot-starter-parent` (3.2.5) 추가.
+2.  **버전 상향:** `<java.version>`을 21로, `<org.egovframe.rte.version>`을 5.0.0으로 상향.
+3.  **Servlet API 교체:** `javax.servlet` 의존성을 **`jakarta.servlet`**으로 변경 (Jakarta EE 10 대응).
+4.  **🚨 에러 1: 의존성 인식 실패 (Artifact ID 변경)**
+    *   **문제:** 메이븐이 `org.egovframe.rte.ptl.mvc` 등 5.0.0 라이브러리를 찾지 못함.
+    *   **해결:** 5.0.0부터 전자정부 라이브러리 명명 규칙이 점(`.`)에서 하이픈(`-`)으로 변경됨 (`egovframe-rte-ptl-mvc`). 이를 반영하여 `pom.xml` 전면 수정.
 
-### 3.3 3단계: 패키지명 일괄 전환 (The Great Rename)
-가장 물리적인 시간이 많이 소요되는 작업입니다.
-*   **대상:** `javax.servlet.*`, `javax.persistence.*`, `javax.validation.*`, `javax.annotation.*` 등
-*   **변경:** 모두 `jakarta.*`로 시작하도록 수정합니다.
-*   **검증의 함정:** 때때로 `pom.xml`만 수정해도 빌드가 성공하는 경우가 있습니다. 이는 다른 라이브러리가 전이 의존성(Transitive Dependency)으로 구형 `javax` 패키지를 여전히 끌어오고 있기 때문일 수 있습니다. 하지만 진정한 5.0 마이그레이션을 위해서는 소스 코드 내의 모든 `javax` 참조를 명시적으로 `jakarta`로 전환해야 합니다.
-*   **Tip (VS Code 활용):** `Ctrl + Shift + F` (전체 찾기) 후 일괄 바꾸기를 실행하되, `javax.sql`이나 `javax.crypto` 등 여전히 `javax`를 유지하는 패키지를 제외하도록 주의합니다.
+### 3.2 2단계: 코드 레벨 대공사 (컴파일 에러 해결)
+POM을 수정하고 `mvn clean compile`을 실행하자 소스 코드 곳곳에서 에러가 터졌습니다.
 
-### 3.4 [중요] 실전 에러 대응 가이드
-`pom.xml` 수정 후 `mvn clean compile` 및 `mvn spring-boot:run` 시 마주하게 되는 대표적인 에러들과 해결 방안입니다.
+1.  **🚨 에러 2: 구형 Validation 퇴출**
+    *   **문제:** `org.springmodules.validation.commons.DefaultBeanValidator` 클래스 찾을 수 없음.
+    *   **원인:** 해당 라이브러리는 Spring 6(Jakarta EE 10)와 호환되지 않아 전자정부 5.0에서 퇴출됨.
+    *   **해결:** `EgovSampleController.java` 등에서 구형 검증기 의존성 및 호출 코드를 모두 제거. (향후 표준 `jakarta.validation`으로 교체 필요)
+2.  **🚨 에러 3: MyBatis Mapper 미인식**
+    *   **문제:** `org.egovframe.rte.psl.dataaccess.mapper.Mapper` 어노테이션 없음.
+    *   **원인:** 프레임워크 전용 어노테이션이 제거되고 오픈소스 표준을 직접 쓰도록 가이드가 변경됨.
+    *   **해결:** `SampleMapper.java`의 임포트를 MyBatis 표준인 `org.apache.ibatis.annotations.Mapper`로 교체.
+3.  **🚨 에러 4: 패키지명 불일치 (The Great Rename)**
+    *   **문제:** `ServletContextAware` 등의 스프링 인터페이스가 `jakarta.servlet`을 요구.
+    *   **해결:** `EgovImgPaginationRenderer.java` 등 프로젝트 전반의 `import javax.servlet.*`을 **`jakarta.servlet.*`**으로 일괄 변경하여 컴파일 최종 성공.
 
-#### ① 구형 Validation 라이브러리의 퇴출
-*   **에러 메시지:** `package org.springmodules.validation.commons does not exist`
-*   **원인:** 전자정부 4.x까지 쓰이던 `springmodules-validation`은 Jakarta EE 10 환경과 호환되지 않아 5.0에서 더 이상 지원되지 않습니다.
-*   **해결:** 구형 `DefaultBeanValidator` 참조를 제거하고, 표준인 **`jakarta.validation` (Hibernate Validator)**으로 교체해야 합니다.
+### 3.3 3단계: Spring Boot Modernization (런타임 에러 해결)
+컴파일은 성공했지만, 외부 톰캣에 얹혀가던(WAR) 프로젝트를 자체 실행 가능한 부트(JAR)로 가동(`mvn spring-boot:run`)하자 런타임 에러들이 발생했습니다.
 
-#### ② MyBatis Mapper 어노테이션 미인식
-*   **에러 메시지:** `cannot find symbol: class Mapper (location: package org.egovframe.rte.psl.dataaccess.mapper)` 혹은 `UnsatisfiedDependencyException (No qualifying bean of type '...SampleMapper')`
-*   **원인:** eGovFrame 5.0에서 전용 `@Mapper`가 제거됨에 따라 MyBatis 표준 `@Mapper`로 교체해야 하며, 스프링 부트 환경에서는 이 매퍼들을 빈으로 등록하기 위한 스캔 설정이 별도로 필요합니다.
-*   **해결:** 
-    1.  `import org.apache.ibatis.annotations.Mapper;`로 교체합니다.
-    2.  메인 클래스에 `@MapperScan(basePackages = "...")` 설정을 추가하여 매퍼 인터페이스를 스프링 빈으로 등록해야 합니다.
+1.  **부트 진입점 생성:** `MigrationApplication.java` (Main 클래스) 신규 생성 및 `@SpringBootApplication` 적용.
+2.  **🚨 에러 5: WEB-INF 리소스 접근 불가 (FileNotFound)**
+    *   **문제:** 부트가 `WEB-INF/config/.../dispatcher-servlet.xml`을 찾지 못함.
+    *   **원인:** 부트(JAR)는 `WEB-INF`를 무시하고 `src/main/resources`만 클래스패스로 인식.
+    *   **해결:** XML 설정 파일들을 `src/main/resources/egovframework/config/`로 물리적으로 이동시키고 `@ImportResource` 경로 수정.
+3.  **🚨 에러 6: 빈 이름 중복 (BeanDefinitionOverride)**
+    *   **문제:** 부트의 자동 설정(Auto-Configuration)과 기존 XML 설정 간 빈 이름 충돌.
+    *   **해결:** `application.properties` 생성 후 `spring.main.allow-bean-definition-overriding=true` 설정 추가 (과도기적 조치).
+4.  **🚨 에러 7: XML 내 구형 클래스 잔재**
+    *   **문제:** 자바 코드에서는 지웠던 `DefaultBeanValidator`를 XML에서 계속 로딩하려다 실패.
+    *   **해결:** `target` 폴더를 지우는 `mvn clean` 수행 및 불필요해진 `context-validator.xml` 파일 완전 삭제.
+5.  **🚨 에러 8: MyBatis 빈 주입 실패**
+    *   **문제:** 서비스 클래스에서 `SampleMapper` 주입 실패.
+    *   **원인:** 표준 `@Mapper`를 사용하면서 스프링 부트용 스캔 설정이 누락됨.
+    *   **해결:** 메인 클래스에 `@MapperScan` 어노테이션을 추가하여 매퍼 위치 명시.
+6.  **🚨 에러 9: JSP 및 JSTL 렌더링 실패**
+    *   **문제 1 (JSTL):** `NoClassDefFoundError: jakarta/servlet/jsp/jstl/core/Config`
+    *   **해결 1:** `pom.xml`에서 구형 JSTL 제거 후 Jakarta EE 10 호환 JSTL(3.0) 라이브러리로 교체.
+    *   **문제 2 (JSP 404):** 부트는 기본적으로 JSP 엔진이 없음.
+    *   **해결 2:** `pom.xml`에 `tomcat-embed-jasper` 추가 및 `properties`에 View Resolver(prefix/suffix) 설정.
+7.  **🚨 에러 10: 구형 Taglib 참조 에러 (JasperException)**
+    *   **문제:** JSP 파일 상단에 구형 Validation 태그 라이브러리 선언이 남아있어 화면 렌더링 실패.
+    *   **해결:** `validator.jsp` 내용 삭제 및 `egovSampleRegister.jsp` 내의 `<%@ taglib prefix="validator"... %>` 및 관련 스크립트 완전 제거.
 
-#### ③ WEB-INF 리소스 접근 불가 (FileNotFound)
-*   **에러 메시지:** `java.io.FileNotFoundException: class path resource [WEB-INF/.../dispatcher-servlet.xml] cannot be opened`
-*   **원인:** 전통적인 WAR 방식에서는 `WEB-INF` 폴더가 웹 컨텍스트 루트에 있었으나, 스프링 부트의 JAR 실행 방식은 오직 **클래스패스(src/main/resources)** 내의 자원만 인식할 수 있습니다.
-*   **해결:** `WEB-INF/config` 아래의 설정 파일들을 `src/main/resources` 하위 폴더로 이동시키고, `@ImportResource` 경로를 `classpath:/...` 형식으로 수정해야 합니다.
-
-#### ④ 빈 중복 등록 에러 (BeanDefinitionOverride)
-*   **에러 메시지:** `BeanDefinitionOverrideException: Invalid bean definition with name 'mvcUrlPathHelper'...`
-*   **원인:** 스프링 부트 2.1부터는 빈 이름 중복 시 에러를 발생시키는 것이 기본값입니다. 기존 XML 설정과 부트의 자동 설정(Auto-Configuration)이 충돌할 때 주로 발생합니다.
-*   **해결:** `application.properties`에 `spring.main.allow-bean-definition-overriding=true` 설정을 추가하여 중복 등록을 허용해 주어야 합니다.
-
-#### ⑤ XML 설정 내 구형 라이브러리 잔재
-*   **에러 메시지:** `Cannot find class [org.springmodules.validation.commons.DefaultBeanValidator] for bean with name 'beanValidator'`
-*   **원인:** 자바 소스 코드에서 구형 라이브러리 참조를 제거했더라도, 기존의 **XML 설정 파일(`context-validator.xml` 등)** 내에 해당 클래스를 빈으로 등록하려는 설정이 남아있는 경우 발생합니다.
-*   **해결:** 해당 XML 파일을 삭제하거나, 불필요한 빈 설정을 제거해야 합니다. 스프링 부트 기반에서는 가능하면 이러한 XML 설정을 부트의 자동 설정이나 Java Config로 대체하는 것을 권장합니다.
-
-#### ⑥ JSTL 라이브러리 인식 불가 (NoClassDefFound)
-*   **에러 메시지:** `java.lang.NoClassDefFoundError: jakarta/servlet/jsp/jstl/core/Config`
-*   **원인:** `javax.servlet`을 `jakarta.servlet`으로 변경했음에도 불구하고, 화면 출력(JSP)에 사용되는 JSTL 라이브러리는 여전히 구형(javax 버전)을 사용하고 있어 발생하는 런타임 에러입니다.
-*   **해결:** `pom.xml`에서 구형 JSTL 의존성을 제거하고, **`jakarta.servlet.jsp.jstl-api`**와 그 구현체(Glassfish 등)를 최신 버전(3.0 이상)으로 교체해야 합니다.
-
-#### ⑦ JSP 화면 미출력 (404 에러 또는 WEB-INF 접근 경고)
-*   **에러 메시지:** `WARN ... ResourceHttpRequestHandler : "Path with "WEB-INF" or "META-INF": ...`
-*   **원인:** 스프링 부트는 기본적으로 JSP 엔진을 포함하지 않으며, JSP 뷰 리졸버 설정이 없으면 해당 경로를 정적 리소스로 오해하여 접근을 차단합니다.
-*   **해결:** 
-    1.  `pom.xml`에 **`tomcat-embed-jasper`** 의존성을 추가합니다.
-    2.  `application.properties`에 `spring.mvc.view.prefix`와 `spring.mvc.view.suffix` 설정을 추가하여 JSP 파일의 위치를 명시합니다.
-
-#### ⑧ 구형 Taglib 참조 에러 (JasperException)
-*   **에러 메시지:** `The absolute uri: [http://www.springmodules.org/tags/commons-validator] cannot be resolved`
-*   **원인:** `pom.xml`에서 제거한 구형 라이브러리(Spring Modules 등)를 참조하는 **Taglib 선언(`<%@ taglib ... %>`)**이 JSP 파일 내에 남아있을 때 발생합니다.
-*   **해결:** 모든 JSP 파일을 검수하여 퇴출된 라이브러리와 관련된 Taglib 선언 및 커스텀 태그(예: `<validator:javascript>`)를 제거해야 합니다. 클라이언트 사이드 검증 로직이 깨질 수 있으므로 관련 자바스크립트 코드 수정도 병행해야 합니다.
-
-### 3.5 4단계: 설정 파일 및 코드 수정
-*   **Spring Security 6.x:** 컴포넌트 기반 및 람다식 설정으로 전환합니다.
-*   **Spring Boot Property:** `application.properties` 내의 변경된 속성명(예: Redis, Thymeleaf 관련)을 확인하고 수정합니다.
-*   **Modernization:** 기존의 XML 설정들을 최대한 Java Config 및 Properties로 통합하여 관리 효율성을 높입니다.
+이 과정을 거쳐 마침내 **"eGovFrame 4.3 MVC 프로젝트를 5.0 Spring Boot 프로젝트로 완벽하게 띄우는 데 성공"**했습니다.
 
 ## 4. 맺음말: 두려움보다 기대감이 큰 마이그레이션
 
@@ -131,6 +112,6 @@
 초반의 '패키지명 바꾸기'나 '라이브러리 호환성 해결' 과정은 분명 고통스럽지만, Java 21 가상 스레드를 통한 성능 향상과 최신 보안 패치 적용이라는 확실한 보상이 기다리고 있습니다.
 
 ### 4.2 준비하며 느낀 점: "전자정부프레임워크가 변하고 있다"
-이번 5.0 마이그레이션을 준비하며 전자정부프레임워크가 기술 트렌드를 매우 공격적으로 수용하고 있다는 인상을 받았습니다. 저를 포함한 많은 개발자들이 Java 11~17에 머물러 있지만, 프레임워크의 이러한 변화는 우리에게도 새로운 기술적 도전과 자극이 될 것입니다.
+이번 5.0 마이그레이션 실습을 직접 진행하며, 전자정부프레임워크가 기술 트렌드를 매우 공격적으로 수용하고 있다는 인상을 받았습니다. 저를 포함한 많은 개발자들이 Java 11~17 혹은 레거시 Spring MVC에 머물러 있지만, 프레임워크의 이러한 변화는 우리에게도 새로운 기술적 도전과 자극이 될 것입니다.
 
-최신 전자정부프레임워크 적용은 단순히 RFP를 준수하는 것을 넘어, 시스템의 지속 가능성을 높이고 개발자로서 한 단계 성장하는 계기가 될 것입니다.
+최신 전자정부프레임워크 적용은 단순히 RFP를 준수하는 것을 넘어, 시스템의 지속 가능성을 높이고 개발자로서 한 단계 성장하는 진정한 마이그레이션의 계기가 될 것입니다.
