@@ -20,7 +20,7 @@ import java.util.List;
 import egovframework.example.sample.service.SampleDefaultVO;
 import egovframework.example.sample.service.SampleVO;
 
-import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * sample에 관한 데이터처리 매퍼 클래스
