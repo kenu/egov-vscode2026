@@ -27,8 +27,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springmodules.validation.commons.DefaultBeanValidator;
 
 import egovframework.example.sample.service.EgovSampleService;
 import egovframework.example.sample.service.SampleDefaultVO;
@@ -62,11 +62,9 @@ public class EgovSampleController {
 	/** EgovPropertyService */
 	private final EgovPropertyService propertiesService;
 
-	/** Validator */
-	private final DefaultBeanValidator beanValidator;
-
 	/**
-	 * 글 목록을 조회한다. (pageing)
+	 * 글 목록을 조회한다.
+ (pageing)
 	 * @param searchVO - 조회할 정보가 담긴 SampleDefaultVO
 	 * @param model
 	 * @return "egovSampleList"
@@ -124,9 +122,6 @@ public class EgovSampleController {
 	public String addSample(@ModelAttribute("searchVO") SampleDefaultVO searchVO, SampleVO sampleVO, BindingResult bindingResult, Model model, SessionStatus status)
 			throws Exception {
 
-		// Server-Side Validation
-		beanValidator.validate(sampleVO, bindingResult);
-
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("sampleVO", sampleVO);
 			return "sample/egovSampleRegister";
@@ -182,8 +177,6 @@ public class EgovSampleController {
 	@PostMapping("/updateSample.do")
 	public String updateSample(@ModelAttribute("searchVO") SampleDefaultVO searchVO, SampleVO sampleVO, BindingResult bindingResult, Model model, SessionStatus status)
 			throws Exception {
-
-		beanValidator.validate(sampleVO, bindingResult);
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("sampleVO", sampleVO);
