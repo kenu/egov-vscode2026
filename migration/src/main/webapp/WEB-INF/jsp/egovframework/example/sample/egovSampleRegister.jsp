@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c"         uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form"      uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="validator" uri="http://www.springmodules.org/tags/commons-validator" %>
 <%@ taglib prefix="spring"    uri="http://www.springframework.org/tags"%>
 <%
   /**
@@ -28,12 +27,9 @@
                   <c:if test="${registerFlag == 'modify'}"><spring:message code="button.modify" /></c:if>
     </title>
     <link type="text/css" rel="stylesheet" href="<c:url value='/css/egovframework/sample.css'/>"/>
-    
-    <!--For Commons Validator Client Side-->
-    <script type="text/javascript" src="<c:url value='/cmmn/validator.do'/>"></script>
-    <validator:javascript formName="sampleVO" staticJavascript="false" xhtml="true" cdata="false"/>
-    
+
     <script type="text/javaScript" language="javascript" defer="defer">
+
         <!--
         /* 글 목록 화면 function */
         function fn_egov_selectList() {
@@ -51,12 +47,8 @@
         /* 글 등록 function */
         function fn_egov_save() {
         	frm = document.detailForm;
-        	if(!validateSampleVO(frm)){
-                return;
-            }else{
-            	frm.action = "<c:url value="${registerFlag == 'create' ? '/addSample.do' : '/updateSample.do'}"/>";
-                frm.submit();
-            }
+            frm.action = "<c:url value="${registerFlag == 'create' ? '/addSample.do' : '/updateSample.do'}"/>";
+            frm.submit();
         }
         
         -->

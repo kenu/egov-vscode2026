@@ -1,3 +1,1 @@
-<%@ page language="java" contentType="javascript/x-javascript" %>
-<%@ taglib prefix="validator" uri="http://www.springmodules.org/tags/commons-validator" %>
-<validator:javascript dynamicJavascript="false" staticJavascript="true"/>
+<%-- 5.0 마이그레이션: 구형 Validation 라이브러리 제거로 인해 비워둠 --%>
