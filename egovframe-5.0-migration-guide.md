@@ -56,6 +56,7 @@
 *   **JDK 설치:** 최소 Java 17이 필요하며, 가상 스레드 활용을 위해 **Java 21** 설치를 강력히 권장합니다.
 *   **Maven 버전:** Maven 3.6.3 이상이 필요하며, 최신 플러그인 호환성을 위해 **3.8.x 이상**을 권장합니다.
 *   **IDE 설정:** VS Code를 사용하는 경우, `Language Support for Java` 확장이 최신 버전인지 확인합니다.
+
 ### 3.2 2단계: `pom.xml` 의존성 및 버전 업데이트
 가장 먼저 프로젝트의 심장인 빌드 설정부터 수정해야 합니다.
 *   **eGovFrame 버전 상향:** `<egovframework.rte.version>5.0.0</egovframework.rte.version>`
@@ -70,9 +71,10 @@
 *   **대상:** `javax.servlet.*`, `javax.persistence.*`, `javax.validation.*`, `javax.annotation.*` 등
 *   **변경:** 모두 `jakarta.*`로 시작하도록 수정합니다.
 *   **검증의 함정:** 때때로 `pom.xml`만 수정해도 빌드가 성공하는 경우가 있습니다. 이는 다른 라이브러리가 전이 의존성(Transitive Dependency)으로 구형 `javax` 패키지를 여전히 끌어오고 있기 때문일 수 있습니다. 하지만 진정한 5.0 마이그레이션을 위해서는 소스 코드 내의 모든 `javax` 참조를 명시적으로 `jakarta`로 전환해야 합니다.
+*   **Tip (VS Code 활용):** `Ctrl + Shift + F` (전체 찾기) 후 일괄 바꾸기를 실행하되, `javax.sql`이나 `javax.crypto` 등 여전히 `javax`를 유지하는 패키지를 제외하도록 주의합니다.
 
 ### 3.4 [중요] 실전 에러 대응 가이드
-`pom.xml` 수정 후 `mvn clean compile` 시 마주하게 되는 대표적인 에러들과 해결 방안입니다.
+`pom.xml` 수정 후 `mvn clean compile` 및 `mvn spring-boot:run` 시 마주하게 되는 대표적인 에러들과 해결 방안입니다.
 
 #### ① 구형 Validation 라이브러리의 퇴출
 *   **에러 메시지:** `package org.springmodules.validation.commons does not exist`
@@ -80,9 +82,43 @@
 *   **해결:** 구형 `DefaultBeanValidator` 참조를 제거하고, 표준인 **`jakarta.validation` (Hibernate Validator)**으로 교체해야 합니다.
 
 #### ② MyBatis Mapper 어노테이션 미인식
-*   **에러 메시지:** `cannot find symbol: class Mapper (location: package org.egovframe.rte.psl.dataaccess.mapper)`
-*   **원인:** eGovFrame 5.0에서 라이브러리 구조가 변경됨에 따라 기존의 `org.egovframe.rte.psl.dataaccess.mapper.Mapper` 어노테이션을 찾지 못하는 경우가 발생합니다.
-*   **해결:** 해당 어노테이션의 패키지 경로를 재확인하거나, 스프링 표준인 `@Mapper` (MyBatis) 등으로 대체가 필요할 수 있습니다.
+*   **에러 메시지:** `cannot find symbol: class Mapper (location: package org.egovframe.rte.psl.dataaccess.mapper)` 혹은 `UnsatisfiedDependencyException (No qualifying bean of type '...SampleMapper')`
+*   **원인:** eGovFrame 5.0에서 전용 `@Mapper`가 제거됨에 따라 MyBatis 표준 `@Mapper`로 교체해야 하며, 스프링 부트 환경에서는 이 매퍼들을 빈으로 등록하기 위한 스캔 설정이 별도로 필요합니다.
+*   **해결:** 
+    1.  `import org.apache.ibatis.annotations.Mapper;`로 교체합니다.
+    2.  메인 클래스에 `@MapperScan(basePackages = "...")` 설정을 추가하여 매퍼 인터페이스를 스프링 빈으로 등록해야 합니다.
+
+#### ③ WEB-INF 리소스 접근 불가 (FileNotFound)
+*   **에러 메시지:** `java.io.FileNotFoundException: class path resource [WEB-INF/.../dispatcher-servlet.xml] cannot be opened`
+*   **원인:** 전통적인 WAR 방식에서는 `WEB-INF` 폴더가 웹 컨텍스트 루트에 있었으나, 스프링 부트의 JAR 실행 방식은 오직 **클래스패스(src/main/resources)** 내의 자원만 인식할 수 있습니다.
+*   **해결:** `WEB-INF/config` 아래의 설정 파일들을 `src/main/resources` 하위 폴더로 이동시키고, `@ImportResource` 경로를 `classpath:/...` 형식으로 수정해야 합니다.
+
+#### ④ 빈 중복 등록 에러 (BeanDefinitionOverride)
+*   **에러 메시지:** `BeanDefinitionOverrideException: Invalid bean definition with name 'mvcUrlPathHelper'...`
+*   **원인:** 스프링 부트 2.1부터는 빈 이름 중복 시 에러를 발생시키는 것이 기본값입니다. 기존 XML 설정과 부트의 자동 설정(Auto-Configuration)이 충돌할 때 주로 발생합니다.
+*   **해결:** `application.properties`에 `spring.main.allow-bean-definition-overriding=true` 설정을 추가하여 중복 등록을 허용해 주어야 합니다.
+
+#### ⑤ XML 설정 내 구형 라이브러리 잔재
+*   **에러 메시지:** `Cannot find class [org.springmodules.validation.commons.DefaultBeanValidator] for bean with name 'beanValidator'`
+*   **원인:** 자바 소스 코드에서 구형 라이브러리 참조를 제거했더라도, 기존의 **XML 설정 파일(`context-validator.xml` 등)** 내에 해당 클래스를 빈으로 등록하려는 설정이 남아있는 경우 발생합니다.
+*   **해결:** 해당 XML 파일을 삭제하거나, 불필요한 빈 설정을 제거해야 합니다. 스프링 부트 기반에서는 가능하면 이러한 XML 설정을 부트의 자동 설정이나 Java Config로 대체하는 것을 권장합니다.
+
+#### ⑥ JSTL 라이브러리 인식 불가 (NoClassDefFound)
+*   **에러 메시지:** `java.lang.NoClassDefFoundError: jakarta/servlet/jsp/jstl/core/Config`
+*   **원인:** `javax.servlet`을 `jakarta.servlet`으로 변경했음에도 불구하고, 화면 출력(JSP)에 사용되는 JSTL 라이브러리는 여전히 구형(javax 버전)을 사용하고 있어 발생하는 런타임 에러입니다.
+*   **해결:** `pom.xml`에서 구형 JSTL 의존성을 제거하고, **`jakarta.servlet.jsp.jstl-api`**와 그 구현체(Glassfish 등)를 최신 버전(3.0 이상)으로 교체해야 합니다.
+
+#### ⑦ JSP 화면 미출력 (404 에러 또는 WEB-INF 접근 경고)
+*   **에러 메시지:** `WARN ... ResourceHttpRequestHandler : "Path with "WEB-INF" or "META-INF": ...`
+*   **원인:** 스프링 부트는 기본적으로 JSP 엔진을 포함하지 않으며, JSP 뷰 리졸버 설정이 없으면 해당 경로를 정적 리소스로 오해하여 접근을 차단합니다.
+*   **해결:** 
+    1.  `pom.xml`에 **`tomcat-embed-jasper`** 의존성을 추가합니다.
+    2.  `application.properties`에 `spring.mvc.view.prefix`와 `spring.mvc.view.suffix` 설정을 추가하여 JSP 파일의 위치를 명시합니다.
+
+#### ⑧ 구형 Taglib 참조 에러 (JasperException)
+*   **에러 메시지:** `The absolute uri: [http://www.springmodules.org/tags/commons-validator] cannot be resolved`
+*   **원인:** `pom.xml`에서 제거한 구형 라이브러리(Spring Modules 등)를 참조하는 **Taglib 선언(`<%@ taglib ... %>`)**이 JSP 파일 내에 남아있을 때 발생합니다.
+*   **해결:** 모든 JSP 파일을 검수하여 퇴출된 라이브러리와 관련된 Taglib 선언 및 커스텀 태그(예: `<validator:javascript>`)를 제거해야 합니다. 클라이언트 사이드 검증 로직이 깨질 수 있으므로 관련 자바스크립트 코드 수정도 병행해야 합니다.
 
 ### 3.5 4단계: 설정 파일 및 코드 수정
 *   **Spring Security 6.x:** 컴포넌트 기반 및 람다식 설정으로 전환합니다.
