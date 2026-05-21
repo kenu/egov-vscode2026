@@ -9,6 +9,13 @@
 	<name>migration</name>
 	<url>http://www.egovframe.go.kr</url>
 
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.2.5</version>
+		<relativePath/>
+	</parent>
+
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
@@ -54,6 +61,12 @@
     </repositories>
 
 	<dependencies>
+		<!-- Spring Boot 웹 엔진 및 내장 서버(Tomcat) 활성화를 위해 추가 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
 		<!-- 표준프레임워크 실행환경 -->
         <dependency>
 		    <groupId>org.egovframe.rte</groupId>
@@ -186,6 +199,11 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <!-- Spring Boot 애플리케이션 빌드 및 실행을 위해 추가 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
             <!-- maven-surefire-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

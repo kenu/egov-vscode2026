@@ -84,6 +84,11 @@
 *   **원인:** eGovFrame 5.0에서 라이브러리 구조가 변경됨에 따라 기존의 `org.egovframe.rte.psl.dataaccess.mapper.Mapper` 어노테이션을 찾지 못하는 경우가 발생합니다.
 *   **해결:** 해당 어노테이션의 패키지 경로를 재확인하거나, 스프링 표준인 `@Mapper` (MyBatis) 등으로 대체가 필요할 수 있습니다.
 
+#### ③ WEB-INF 리소스 접근 불가 (FileNotFound)
+*   **에러 메시지:** `java.io.FileNotFoundException: class path resource [WEB-INF/.../dispatcher-servlet.xml] cannot be opened`
+*   **원인:** 전통적인 WAR 방식에서는 `WEB-INF` 폴더가 웹 컨텍스트 루트에 있었으나, 스프링 부트의 JAR 실행 방식은 오직 **클래스패스(src/main/resources)** 내의 자원만 인식할 수 있습니다.
+*   **해결:** `WEB-INF/config` 아래의 설정 파일들을 `src/main/resources` 하위 폴더로 이동시키고, `@ImportResource` 경로를 `classpath:/...` 형식으로 수정해야 합니다.
+
 ### 3.5 4단계: 설정 파일 및 코드 수정
 *   **Spring Security 6.x:** 컴포넌트 기반 및 람다식 설정으로 전환합니다.
 *   **Spring Boot Property:** `application.properties` 내의 변경된 속성명(예: Redis, Thymeleaf 관련)을 확인하고 수정합니다.
