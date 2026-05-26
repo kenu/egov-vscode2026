@@ -17,7 +17,7 @@
 | GyeonghwaKim | [15](https://github.com/kenu/egov-vscode2026/issues/15) | [eGovFrame 기반 RESTful API 설계 및 Swagger 연동](./restfulapi-swagger/restfulapi-swagger.md) | open |
 | romdyfo | [14](https://github.com/kenu/egov-vscode2026/issues/14) | Spring Security와 eGovFrame 권한 관리 시스템 통합 | open |
 | dovob213 | [13](https://github.com/kenu/egov-vscode2026/issues/13) | [GitHub Actions를 활용한 Maven 빌드 및 자동 PR 체크 시스템 구축](./github-actions-maven-pr-check.md) | closed |
-| byeongjuPark | [12](https://github.com/kenu/egov-vscode2026/issues/12) | Spring Boot Extension Pack 200% 활용법: VS Code 필수 확장 프로그램 | open |
+| byeongjuPark | [12](https://github.com/kenu/egov-vscode2026/issues/12) | 비동기 메시징 시스템, 언제 써야 할까? | open |
 | Rockernun | [11](https://github.com/kenu/egov-vscode2026/issues/11) | [Spring Bean 순환 참조(Circular Dependency) 해결 사례](spring-bean-circular-reference.md) | open |
 | JBumLee | [10](https://github.com/kenu/egov-vscode2026/issues/10) | Validation 프레임워크 활용: @Valid와 BindingResult 처리 | open |
 | songhyeongyu | [9](https://github.com/kenu/egov-vscode2026/issues/9) | Java Heap Dump 분석: eGovFrame 애플리케이션 메모리 누수 잡기 | open |
