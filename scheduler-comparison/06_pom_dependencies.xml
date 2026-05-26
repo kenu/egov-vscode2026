@@ -1,0 +1,49 @@
+<!--
+  [예제 6] pom.xml 의존성 비교
+
+  eGovFrame 부트 템플릿(공통컴포넌트 simple) 기준
+-->
+
+<!-- ════════════════════════════════════════════════════════════
+     A. Spring Task 만 사용 - 추가 의존성 0개
+     ════════════════════════════════════════════════════════════
+     spring-context 안에 이미 @Scheduled 가 포함되어 있다.
+     eGovFrame 부트 템플릿은 spring-boot-starter 가 이를 끌어오므로
+     별도 의존성을 추가할 필요가 없다.
+
+     활성화 방법:
+       @SpringBootApplication
+       @EnableScheduling          ← 이 한 줄만 추가
+       public class EgovBootApplication { ... }
+-->
+
+
+<!-- ════════════════════════════════════════════════════════════
+     B. Quartz 사용
+     ════════════════════════════════════════════════════════════ -->
+
+<!-- Spring Boot 기반 eGovFrame (4.0 이상 권장) -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-quartz</artifactId>
+</dependency>
+<!--
+  이 한 줄로 다음이 함께 들어온다:
+    - quartz 2.3.x
+    - quartz-jobs
+    - spring-context-support (Spring 의 Quartz 통합)
+    - HikariCP 와 jdbc 가 이미 있으면 JDBCJobStore 자동 후보
+-->
+
+
+<!-- (선택) Spring Task 를 유지하면서 클러스터 락만 필요할 때: ShedLock -->
+<dependency>
+    <groupId>net.javacrumbs.shedlock</groupId>
+    <artifactId>shedlock-spring</artifactId>
+    <version>5.16.0</version>
+</dependency>
+<dependency>
+    <groupId>net.javacrumbs.shedlock</groupId>
+    <artifactId>shedlock-provider-jdbc-template</artifactId>
+    <version>5.16.0</version>
+</dependency>

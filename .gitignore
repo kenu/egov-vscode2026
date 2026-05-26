@@ -1,8 +1,21 @@
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Maven
+target/
+node/
+node_modules/
+
 # Compiled class file
 *.class
 
 # Log file
 *.log
+
+# SQLite database files
+*.db
 
 # BlueJ files
 *.ctxt
@@ -18,7 +31,14 @@
 *.zip
 *.tar.gz
 *.rar
+target/
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+.DS_Store
+.idea/
+.vscode/
+target/
+build/

@@ -1,0 +1,23 @@
+// ⚠️ 이 파일은 보여주기 전용입니다 (.java 가 아니라 .txt 임에 주의).
+//    실제 빌드 시 MapStruct 가 target/generated-sources/annotations/ 에
+//    이것과 거의 똑같은 파일을 자동으로 만들어 줍니다.
+
+
+@Generated(value = "org.mapstruct.ap.MappingProcessor")
+@Component
+public class MemberMapperImpl implements MemberMapper {
+
+    @Override
+    public MemberDto toDto(MemberVO vo) {
+        if (vo == null) return null;
+
+        MemberDto.MemberDtoBuilder memberDto = MemberDto.builder();
+
+        memberDto.name( vo.getMemberNm() );      // ← Lombok 이 만든 getter
+        memberDto.memberId( vo.getMemberId() );
+        memberDto.email( vo.getEmail() );
+        memberDto.age( vo.getAge() );
+
+        return memberDto.build();                // ← Lombok 이 만든 builder
+    }
+}

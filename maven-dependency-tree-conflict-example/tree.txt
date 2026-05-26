@@ -1,0 +1,417 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------< com.example:complex-dependency-lab >-----------------
+[INFO] Building complex-dependency-lab 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.7.0:tree (default-cli) @ complex-dependency-lab ---
+[INFO] com.example:complex-dependency-lab:jar:1.0-SNAPSHOT
+[INFO] +- org.seleniumhq.selenium:selenium-java:jar:4.8.3:compile
+[INFO] |  +- org.seleniumhq.selenium:selenium-api:jar:4.8.3:compile
+[INFO] |  +- org.seleniumhq.selenium:selenium-chrome-driver:jar:4.8.3:compile
+[INFO] |  |  +- com.google.auto.service:auto-service-annotations:jar:1.0.1:compile
+[INFO] |  |  +- com.google.auto.service:auto-service:jar:1.0.1:compile
+[INFO] |  |  |  +- (com.google.auto.service:auto-service-annotations:jar:1.0.1:compile - omitted for duplicate)
+[INFO] |  |  |  +- com.google.auto:auto-common:jar:1.2:compile
+[INFO] |  |  |  |  \- (com.google.guava:guava:jar:31.0.1-jre:compile - omitted for conflict with 31.1-jre)
+[INFO] |  |  |  \- (com.google.guava:guava:jar:31.0.1-jre:compile - omitted for conflict with 31.1-jre)
+[INFO] |  |  +- (com.google.guava:guava:jar:31.1-jre:compile - omitted for duplicate)
+[INFO] |  |  +- (org.seleniumhq.selenium:selenium-api:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  +- org.seleniumhq.selenium:selenium-chromium-driver:jar:4.8.3:compile
+[INFO] |  |  |  +- (com.google.auto.service:auto-service-annotations:jar:1.0.1:compile - omitted for duplicate)
+[INFO] |  |  |  +- (com.google.auto.service:auto-service:jar:1.0.1:compile - omitted for duplicate)
+[INFO] |  |  |  +- (com.google.guava:guava:jar:31.1-jre:compile - omitted for duplicate)
+[INFO] |  |  |  +- (org.seleniumhq.selenium:selenium-json:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  |  \- (org.seleniumhq.selenium:selenium-remote-driver:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  +- org.seleniumhq.selenium:selenium-json:jar:4.8.3:compile
+[INFO] |  |  |  \- (org.seleniumhq.selenium:selenium-api:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  +- org.seleniumhq.selenium:selenium-manager:jar:4.8.3:compile
+[INFO] |  |  |  +- (com.google.guava:guava:jar:31.1-jre:compile - omitted for duplicate)
+[INFO] |  |  |  +- (org.seleniumhq.selenium:selenium-api:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  |  \- (org.seleniumhq.selenium:selenium-json:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  \- (org.seleniumhq.selenium:selenium-remote-driver:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  +- org.seleniumhq.selenium:selenium-devtools-v109:jar:4.8.3:compile
+[INFO] |  |  +- (com.google.auto.service:auto-service-annotations:jar:1.0.1:compile - omitted for duplicate)
+[INFO] |  |  +- (com.google.auto.service:auto-service:jar:1.0.1:compile - omitted for duplicate)
+[INFO] |  |  +- (com.google.guava:guava:jar:31.1-jre:compile - omitted for duplicate)
+[INFO] |  |  +- (org.seleniumhq.selenium:selenium-api:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  +- (org.seleniumhq.selenium:selenium-json:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  \- (org.seleniumhq.selenium:selenium-remote-driver:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  +- org.seleniumhq.selenium:selenium-devtools-v110:jar:4.8.3:compile
+[INFO] |  |  +- (com.google.auto.service:auto-service-annotations:jar:1.0.1:compile - omitted for duplicate)
+[INFO] |  |  +- (com.google.auto.service:auto-service:jar:1.0.1:compile - omitted for duplicate)
+[INFO] |  |  +- (com.google.guava:guava:jar:31.1-jre:compile - omitted for duplicate)
+[INFO] |  |  +- (org.seleniumhq.selenium:selenium-api:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  +- (org.seleniumhq.selenium:selenium-json:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  \- (org.seleniumhq.selenium:selenium-remote-driver:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  +- org.seleniumhq.selenium:selenium-devtools-v111:jar:4.8.3:compile
+[INFO] |  |  +- (com.google.auto.service:auto-service-annotations:jar:1.0.1:compile - omitted for duplicate)
+[INFO] |  |  +- (com.google.auto.service:auto-service:jar:1.0.1:compile - omitted for duplicate)
+[INFO] |  |  +- (com.google.guava:guava:jar:31.1-jre:compile - omitted for duplicate)
+[INFO] |  |  +- (org.seleniumhq.selenium:selenium-api:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  +- (org.seleniumhq.selenium:selenium-json:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  \- (org.seleniumhq.selenium:selenium-remote-driver:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  +- org.seleniumhq.selenium:selenium-devtools-v85:jar:4.8.3:compile
+[INFO] |  |  +- (com.google.auto.service:auto-service-annotations:jar:1.0.1:compile - omitted for duplicate)
+[INFO] |  |  +- (com.google.auto.service:auto-service:jar:1.0.1:compile - omitted for duplicate)
+[INFO] |  |  +- (com.google.guava:guava:jar:31.1-jre:compile - omitted for duplicate)
+[INFO] |  |  +- (org.seleniumhq.selenium:selenium-api:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  +- (org.seleniumhq.selenium:selenium-json:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  \- (org.seleniumhq.selenium:selenium-remote-driver:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  +- org.seleniumhq.selenium:selenium-edge-driver:jar:4.8.3:compile
+[INFO] |  |  +- (com.google.auto.service:auto-service-annotations:jar:1.0.1:compile - omitted for duplicate)
+[INFO] |  |  +- (com.google.auto.service:auto-service:jar:1.0.1:compile - omitted for duplicate)
+[INFO] |  |  +- (com.google.guava:guava:jar:31.1-jre:compile - omitted for duplicate)
+[INFO] |  |  +- (org.seleniumhq.selenium:selenium-api:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  +- (org.seleniumhq.selenium:selenium-chromium-driver:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  +- (org.seleniumhq.selenium:selenium-manager:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  \- (org.seleniumhq.selenium:selenium-remote-driver:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  +- org.seleniumhq.selenium:selenium-firefox-driver:jar:4.8.3:compile
+[INFO] |  |  +- (com.google.auto.service:auto-service-annotations:jar:1.0.1:compile - omitted for duplicate)
+[INFO] |  |  +- (com.google.auto.service:auto-service:jar:1.0.1:compile - omitted for duplicate)
+[INFO] |  |  +- (com.google.guava:guava:jar:31.1-jre:compile - omitted for duplicate)
+[INFO] |  |  +- (org.seleniumhq.selenium:selenium-api:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  +- (org.seleniumhq.selenium:selenium-devtools-v85:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  +- org.seleniumhq.selenium:selenium-http:jar:4.8.3:compile
+[INFO] |  |  |  +- (com.google.guava:guava:jar:31.1-jre:compile - omitted for duplicate)
+[INFO] |  |  |  +- dev.failsafe:failsafe:jar:3.3.1:compile
+[INFO] |  |  |  +- (org.seleniumhq.selenium:selenium-api:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  |  \- (org.seleniumhq.selenium:selenium-json:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  +- (org.seleniumhq.selenium:selenium-json:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  +- (org.seleniumhq.selenium:selenium-manager:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  \- (org.seleniumhq.selenium:selenium-remote-driver:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  +- org.seleniumhq.selenium:selenium-ie-driver:jar:4.8.3:compile
+[INFO] |  |  +- (com.google.auto.service:auto-service-annotations:jar:1.0.1:compile - omitted for duplicate)
+[INFO] |  |  +- (com.google.auto.service:auto-service:jar:1.0.1:compile - omitted for duplicate)
+[INFO] |  |  +- (org.seleniumhq.selenium:selenium-api:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  +- (org.seleniumhq.selenium:selenium-manager:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  \- (org.seleniumhq.selenium:selenium-remote-driver:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  +- org.seleniumhq.selenium:selenium-remote-driver:jar:4.8.3:compile
+[INFO] |  |  +- com.beust:jcommander:jar:1.82:compile
+[INFO] |  |  +- (com.google.auto.service:auto-service-annotations:jar:1.0.1:compile - omitted for duplicate)
+[INFO] |  |  +- (com.google.auto.service:auto-service:jar:1.0.1:compile - omitted for duplicate)
+[INFO] |  |  +- (com.google.guava:guava:jar:31.1-jre:compile - omitted for duplicate)
+[INFO] |  |  +- io.netty:netty-buffer:jar:4.1.90.Final:compile
+[INFO] |  |  |  \- (io.netty:netty-common:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  +- io.netty:netty-codec-http:jar:4.1.90.Final:compile
+[INFO] |  |  |  +- (io.netty:netty-common:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  |  +- (io.netty:netty-buffer:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  |  +- (io.netty:netty-transport:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  |  +- io.netty:netty-codec:jar:4.1.90.Final:compile
+[INFO] |  |  |  |  +- (io.netty:netty-common:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  |  |  +- (io.netty:netty-buffer:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  |  |  \- (io.netty:netty-transport:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  |  \- io.netty:netty-handler:jar:4.1.90.Final:compile
+[INFO] |  |  |     +- (io.netty:netty-common:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  |     +- (io.netty:netty-resolver:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  |     +- (io.netty:netty-buffer:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  |     +- (io.netty:netty-transport:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  |     +- (io.netty:netty-transport-native-unix-common:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  |     \- (io.netty:netty-codec:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  +- io.netty:netty-common:jar:4.1.90.Final:compile
+[INFO] |  |  +- io.netty:netty-transport-classes-epoll:jar:4.1.90.Final:compile
+[INFO] |  |  |  +- (io.netty:netty-common:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  |  +- (io.netty:netty-buffer:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  |  +- (io.netty:netty-transport:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  |  \- (io.netty:netty-transport-native-unix-common:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  +- io.netty:netty-transport-classes-kqueue:jar:4.1.90.Final:compile
+[INFO] |  |  |  +- (io.netty:netty-common:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  |  +- (io.netty:netty-buffer:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  |  +- (io.netty:netty-transport:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  |  \- (io.netty:netty-transport-native-unix-common:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  +- io.netty:netty-transport-native-epoll:jar:4.1.90.Final:linux-x86_64
+[INFO] |  |  |  +- (io.netty:netty-common:jar:4.1.90.Final:runtime - omitted for duplicate)
+[INFO] |  |  |  +- (io.netty:netty-buffer:jar:4.1.90.Final:runtime - omitted for duplicate)
+[INFO] |  |  |  +- (io.netty:netty-transport:jar:4.1.90.Final:runtime - omitted for duplicate)
+[INFO] |  |  |  +- (io.netty:netty-transport-native-unix-common:jar:4.1.90.Final:runtime - omitted for duplicate)
+[INFO] |  |  |  \- (io.netty:netty-transport-classes-epoll:jar:4.1.90.Final:runtime - omitted for duplicate)
+[INFO] |  |  +- io.netty:netty-transport-native-kqueue:jar:4.1.90.Final:osx-x86_64
+[INFO] |  |  |  +- (io.netty:netty-common:jar:4.1.90.Final:runtime - omitted for duplicate)
+[INFO] |  |  |  +- (io.netty:netty-buffer:jar:4.1.90.Final:runtime - omitted for duplicate)
+[INFO] |  |  |  +- (io.netty:netty-transport:jar:4.1.90.Final:runtime - omitted for duplicate)
+[INFO] |  |  |  +- (io.netty:netty-transport-native-unix-common:jar:4.1.90.Final:runtime - omitted for duplicate)
+[INFO] |  |  |  \- (io.netty:netty-transport-classes-kqueue:jar:4.1.90.Final:runtime - omitted for duplicate)
+[INFO] |  |  +- io.netty:netty-transport-native-unix-common:jar:4.1.90.Final:compile
+[INFO] |  |  |  +- (io.netty:netty-common:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  |  +- (io.netty:netty-buffer:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  |  \- (io.netty:netty-transport:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  +- io.netty:netty-transport:jar:4.1.90.Final:compile
+[INFO] |  |  |  +- (io.netty:netty-common:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  |  +- (io.netty:netty-buffer:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  |  \- io.netty:netty-resolver:jar:4.1.90.Final:compile
+[INFO] |  |  |     \- (io.netty:netty-common:jar:4.1.90.Final:compile - omitted for duplicate)
+[INFO] |  |  +- io.opentelemetry:opentelemetry-api:jar:1.24.0:compile
+[INFO] |  |  |  \- (io.opentelemetry:opentelemetry-context:jar:1.24.0:compile - omitted for duplicate)
+[INFO] |  |  +- io.opentelemetry:opentelemetry-context:jar:1.24.0:compile
+[INFO] |  |  +- io.opentelemetry:opentelemetry-exporter-logging:jar:1.24.0:compile
+[INFO] |  |  |  +- (io.opentelemetry:opentelemetry-sdk:jar:1.24.0:compile - omitted for duplicate)
+[INFO] |  |  |  +- io.opentelemetry:opentelemetry-sdk-metrics:jar:1.24.0:compile (scope not updated to compile)
+[INFO] |  |  |  |  +- (io.opentelemetry:opentelemetry-api:jar:1.24.0:compile - omitted for duplicate)
+[INFO] |  |  |  |  \- (io.opentelemetry:opentelemetry-sdk-common:jar:1.24.0:compile - omitted for duplicate)
+[INFO] |  |  |  +- io.opentelemetry:opentelemetry-sdk-logs:jar:1.24.0-alpha:compile (scope not updated to compile)
+[INFO] |  |  |  |  +- io.opentelemetry:opentelemetry-api-logs:jar:1.24.0-alpha:compile
+[INFO] |  |  |  |  |  \- (io.opentelemetry:opentelemetry-api:jar:1.24.0:compile - omitted for duplicate)
+[INFO] |  |  |  |  +- io.opentelemetry:opentelemetry-api-events:jar:1.24.0-alpha:compile
+[INFO] |  |  |  |  |  \- (io.opentelemetry:opentelemetry-api:jar:1.24.0:compile - omitted for duplicate)
+[INFO] |  |  |  |  \- (io.opentelemetry:opentelemetry-sdk-common:jar:1.24.0:compile - omitted for duplicate)
+[INFO] |  |  |  \- (io.opentelemetry:opentelemetry-sdk-extension-autoconfigure-spi:jar:1.24.0:runtime - omitted for duplicate)
+[INFO] |  |  +- io.opentelemetry:opentelemetry-sdk-common:jar:1.24.0:compile
+[INFO] |  |  |  +- (io.opentelemetry:opentelemetry-api:jar:1.24.0:compile - omitted for duplicate)
+[INFO] |  |  |  \- (io.opentelemetry:opentelemetry-semconv:jar:1.24.0-alpha:runtime - omitted for duplicate)
+[INFO] |  |  +- io.opentelemetry:opentelemetry-sdk-extension-autoconfigure-spi:jar:1.24.0:compile
+[INFO] |  |  |  +- (io.opentelemetry:opentelemetry-sdk:jar:1.24.0:compile - omitted for duplicate)
+[INFO] |  |  |  +- (io.opentelemetry:opentelemetry-sdk-metrics:jar:1.24.0:runtime - omitted for duplicate)
+[INFO] |  |  |  \- (io.opentelemetry:opentelemetry-sdk-logs:jar:1.24.0-alpha:runtime - omitted for duplicate)
+[INFO] |  |  +- io.opentelemetry:opentelemetry-sdk-extension-autoconfigure:jar:1.24.0-alpha:compile
+[INFO] |  |  |  +- (io.opentelemetry:opentelemetry-sdk:jar:1.24.0:compile - omitted for duplicate)
+[INFO] |  |  |  +- (io.opentelemetry:opentelemetry-sdk-metrics:jar:1.24.0:compile - omitted for duplicate)
+[INFO] |  |  |  +- (io.opentelemetry:opentelemetry-sdk-logs:jar:1.24.0-alpha:compile - omitted for duplicate)
+[INFO] |  |  |  +- (io.opentelemetry:opentelemetry-sdk-extension-autoconfigure-spi:jar:1.24.0:compile - omitted for duplicate)
+[INFO] |  |  |  \- (io.opentelemetry:opentelemetry-semconv:jar:1.24.0-alpha:runtime - omitted for duplicate)
+[INFO] |  |  +- io.opentelemetry:opentelemetry-sdk-trace:jar:1.24.0:compile
+[INFO] |  |  |  +- (io.opentelemetry:opentelemetry-api:jar:1.24.0:compile - omitted for duplicate)
+[INFO] |  |  |  +- (io.opentelemetry:opentelemetry-sdk-common:jar:1.24.0:compile - omitted for duplicate)
+[INFO] |  |  |  \- (io.opentelemetry:opentelemetry-semconv:jar:1.24.0-alpha:runtime - omitted for duplicate)
+[INFO] |  |  +- io.opentelemetry:opentelemetry-sdk:jar:1.24.0:compile
+[INFO] |  |  |  +- (io.opentelemetry:opentelemetry-api:jar:1.24.0:compile - omitted for duplicate)
+[INFO] |  |  |  +- (io.opentelemetry:opentelemetry-sdk-common:jar:1.24.0:compile - omitted for duplicate)
+[INFO] |  |  |  +- (io.opentelemetry:opentelemetry-sdk-trace:jar:1.24.0:compile - omitted for duplicate)
+[INFO] |  |  |  +- (io.opentelemetry:opentelemetry-sdk-metrics:jar:1.24.0:compile - omitted for duplicate)
+[INFO] |  |  |  \- (io.opentelemetry:opentelemetry-sdk-logs:jar:1.24.0-alpha:runtime - omitted for duplicate)
+[INFO] |  |  +- io.opentelemetry:opentelemetry-semconv:jar:1.24.0-alpha:compile
+[INFO] |  |  |  \- (io.opentelemetry:opentelemetry-api:jar:1.24.0:compile - omitted for duplicate)
+[INFO] |  |  +- io.ous:jtoml:jar:2.0.0:compile
+[INFO] |  |  +- net.bytebuddy:byte-buddy:jar:1.14.2:compile
+[INFO] |  |  +- org.apache.commons:commons-exec:jar:1.3:compile
+[INFO] |  |  +- org.asynchttpclient:async-http-client:jar:2.12.3:compile
+[INFO] |  |  |  +- org.asynchttpclient:async-http-client-netty-utils:jar:2.12.3:compile
+[INFO] |  |  |  |  +- (io.netty:netty-buffer:jar:4.1.60.Final:compile - omitted for conflict with 4.1.90.Final)
+[INFO] |  |  |  |  +- (org.slf4j:slf4j-api:jar:1.7.30:compile - omitted for conflict with 1.7.10)
+[INFO] |  |  |  |  \- (com.sun.activation:jakarta.activation:jar:1.2.2:compile - omitted for duplicate)
+[INFO] |  |  |  +- (io.netty:netty-codec-http:jar:4.1.60.Final:compile - omitted for conflict with 4.1.90.Final)
+[INFO] |  |  |  +- (io.netty:netty-handler:jar:4.1.60.Final:compile - omitted for conflict with 4.1.90.Final)
+[INFO] |  |  |  +- io.netty:netty-codec-socks:jar:4.1.60.Final:compile
+[INFO] |  |  |  |  +- (io.netty:netty-common:jar:4.1.60.Final:compile - omitted for conflict with 4.1.90.Final)
+[INFO] |  |  |  |  +- (io.netty:netty-buffer:jar:4.1.60.Final:compile - omitted for conflict with 4.1.90.Final)
+[INFO] |  |  |  |  +- (io.netty:netty-transport:jar:4.1.60.Final:compile - omitted for conflict with 4.1.90.Final)
+[INFO] |  |  |  |  \- (io.netty:netty-codec:jar:4.1.60.Final:compile - omitted for conflict with 4.1.90.Final)
+[INFO] |  |  |  +- io.netty:netty-handler-proxy:jar:4.1.60.Final:compile
+[INFO] |  |  |  |  +- (io.netty:netty-common:jar:4.1.60.Final:compile - omitted for conflict with 4.1.90.Final)
+[INFO] |  |  |  |  +- (io.netty:netty-buffer:jar:4.1.60.Final:compile - omitted for conflict with 4.1.90.Final)
+[INFO] |  |  |  |  +- (io.netty:netty-transport:jar:4.1.60.Final:compile - omitted for conflict with 4.1.90.Final)
+[INFO] |  |  |  |  +- (io.netty:netty-codec:jar:4.1.60.Final:compile - omitted for conflict with 4.1.90.Final)
+[INFO] |  |  |  |  +- (io.netty:netty-codec-socks:jar:4.1.60.Final:compile - omitted for duplicate)
+[INFO] |  |  |  |  \- (io.netty:netty-codec-http:jar:4.1.60.Final:compile - omitted for conflict with 4.1.90.Final)
+[INFO] |  |  |  +- io.netty:netty-transport-native-epoll:jar:linux-x86_64:4.1.60.Final:compile
+[INFO] |  |  |  |  +- (io.netty:netty-common:jar:4.1.60.Final:compile - omitted for conflict with 4.1.90.Final)
+[INFO] |  |  |  |  +- (io.netty:netty-buffer:jar:4.1.60.Final:compile - omitted for conflict with 4.1.90.Final)
+[INFO] |  |  |  |  +- (io.netty:netty-transport:jar:4.1.60.Final:compile - omitted for conflict with 4.1.90.Final)
+[INFO] |  |  |  |  \- (io.netty:netty-transport-native-unix-common:jar:4.1.60.Final:compile - omitted for conflict with 4.1.90.Final)
+[INFO] |  |  |  +- io.netty:netty-transport-native-kqueue:jar:osx-x86_64:4.1.60.Final:compile
+[INFO] |  |  |  |  +- (io.netty:netty-common:jar:4.1.60.Final:compile - omitted for conflict with 4.1.90.Final)
+[INFO] |  |  |  |  +- (io.netty:netty-buffer:jar:4.1.60.Final:compile - omitted for conflict with 4.1.90.Final)
+[INFO] |  |  |  |  +- (io.netty:netty-transport:jar:4.1.60.Final:compile - omitted for conflict with 4.1.90.Final)
+[INFO] |  |  |  |  \- (io.netty:netty-transport-native-unix-common:jar:4.1.60.Final:compile - omitted for conflict with 4.1.90.Final)
+[INFO] |  |  |  +- org.reactivestreams:reactive-streams:jar:1.0.3:compile
+[INFO] |  |  |  +- com.typesafe.netty:netty-reactive-streams:jar:2.0.4:compile
+[INFO] |  |  |  |  +- (io.netty:netty-handler:jar:4.1.43.Final:compile - omitted for conflict with 4.1.90.Final)
+[INFO] |  |  |  |  \- (org.reactivestreams:reactive-streams:jar:1.0.3:compile - omitted for duplicate)
+[INFO] |  |  |  +- (org.slf4j:slf4j-api:jar:1.7.30:compile - omitted for conflict with 1.7.10)
+[INFO] |  |  |  \- com.sun.activation:jakarta.activation:jar:1.2.2:compile
+[INFO] |  |  +- (org.seleniumhq.selenium:selenium-api:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  +- (org.seleniumhq.selenium:selenium-http:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  +- (org.seleniumhq.selenium:selenium-json:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  \- (org.seleniumhq.selenium:selenium-manager:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  +- org.seleniumhq.selenium:selenium-safari-driver:jar:4.8.3:compile
+[INFO] |  |  +- (com.google.auto.service:auto-service-annotations:jar:1.0.1:compile - omitted for duplicate)
+[INFO] |  |  +- (com.google.auto.service:auto-service:jar:1.0.1:compile - omitted for duplicate)
+[INFO] |  |  +- (com.google.guava:guava:jar:31.1-jre:compile - omitted for duplicate)
+[INFO] |  |  +- (org.seleniumhq.selenium:selenium-api:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  |  \- (org.seleniumhq.selenium:selenium-remote-driver:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |  \- org.seleniumhq.selenium:selenium-support:jar:4.8.3:compile
+[INFO] |     +- (com.google.auto.service:auto-service-annotations:jar:1.0.1:compile - omitted for duplicate)
+[INFO] |     +- (com.google.auto.service:auto-service:jar:1.0.1:compile - omitted for duplicate)
+[INFO] |     +- (com.google.guava:guava:jar:31.1-jre:compile - omitted for duplicate)
+[INFO] |     +- (net.bytebuddy:byte-buddy:jar:1.14.2:compile - omitted for duplicate)
+[INFO] |     +- (org.seleniumhq.selenium:selenium-api:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |     +- (org.seleniumhq.selenium:selenium-json:jar:4.8.3:compile - omitted for duplicate)
+[INFO] |     \- (org.seleniumhq.selenium:selenium-remote-driver:jar:4.8.3:compile - omitted for duplicate)
+[INFO] +- com.google.cloud:google-cloud-storage:jar:2.22.2:compile
+[INFO] |  +- com.google.guava:guava:jar:31.1-jre:compile
+[INFO] |  +- com.google.guava:failureaccess:jar:1.0.1:compile
+[INFO] |  +- com.google.guava:listenablefuture:jar:9999.0-empty-to-avoid-conflict-with-guava:compile
+[INFO] |  +- com.google.errorprone:error_prone_annotations:jar:2.18.0:compile
+[INFO] |  +- com.google.j2objc:j2objc-annotations:jar:1.3:compile
+[INFO] |  +- com.google.http-client:google-http-client:jar:1.43.1:compile
+[INFO] |  +- io.opencensus:opencensus-contrib-http-util:jar:0.31.1:compile
+[INFO] |  +- com.google.http-client:google-http-client-jackson2:jar:1.43.1:compile
+[INFO] |  +- com.google.http-client:google-http-client-gson:jar:1.43.1:compile
+[INFO] |  +- com.google.api-client:google-api-client:jar:2.2.0:compile
+[INFO] |  +- commons-codec:commons-codec:jar:1.15:compile
+[INFO] |  +- com.google.oauth-client:google-oauth-client:jar:1.34.1:compile
+[INFO] |  +- com.google.http-client:google-http-client-apache-v2:jar:1.43.1:compile
+[INFO] |  +- com.google.apis:google-api-services-storage:jar:v1-rev20230301-2.0.0:compile
+[INFO] |  +- com.google.code.gson:gson:jar:2.10.1:compile
+[INFO] |  +- com.google.cloud:google-cloud-core:jar:2.17.0:compile
+[INFO] |  +- com.google.auto.value:auto-value-annotations:jar:1.10.1:compile
+[INFO] |  +- com.google.cloud:google-cloud-core-http:jar:2.17.0:compile
+[INFO] |  +- com.google.http-client:google-http-client-appengine:jar:1.43.1:compile
+[INFO] |  +- com.google.api:gax-httpjson:jar:0.112.0:compile
+[INFO] |  +- com.google.cloud:google-cloud-core-grpc:jar:2.17.0:compile
+[INFO] |  +- com.google.api:gax:jar:2.27.0:compile
+[INFO] |  +- com.google.api:gax-grpc:jar:2.27.0:compile
+[INFO] |  +- io.grpc:grpc-alts:jar:1.54.0:compile
+[INFO] |  +- io.grpc:grpc-grpclb:jar:1.54.0:compile
+[INFO] |  +- org.conscrypt:conscrypt-openjdk-uber:jar:2.5.2:compile
+[INFO] |  +- io.grpc:grpc-auth:jar:1.54.0:compile
+[INFO] |  +- io.grpc:grpc-protobuf:jar:1.54.0:compile
+[INFO] |  +- io.grpc:grpc-protobuf-lite:jar:1.54.0:compile
+[INFO] |  +- com.google.auth:google-auth-library-credentials:jar:1.16.0:compile
+[INFO] |  +- com.google.auth:google-auth-library-oauth2-http:jar:1.16.0:compile
+[INFO] |  +- com.google.api:api-common:jar:2.10.0:compile
+[INFO] |  +- javax.annotation:javax.annotation-api:jar:1.3.2:compile
+[INFO] |  +- io.opencensus:opencensus-api:jar:0.31.1:compile
+[INFO] |  +- io.grpc:grpc-context:jar:1.54.0:compile
+[INFO] |  +- com.google.api.grpc:proto-google-iam-v1:jar:1.13.0:compile
+[INFO] |  +- com.google.protobuf:protobuf-java:jar:3.21.12:compile
+[INFO] |  +- com.google.protobuf:protobuf-java-util:jar:3.21.12:compile
+[INFO] |  +- com.google.api.grpc:proto-google-common-protos:jar:2.18.0:compile
+[INFO] |  +- org.threeten:threetenbp:jar:1.6.8:compile
+[INFO] |  +- com.google.api.grpc:proto-google-cloud-storage-v2:jar:2.22.2-alpha:compile
+[INFO] |  +- com.google.api.grpc:grpc-google-cloud-storage-v2:jar:2.22.2-alpha:compile
+[INFO] |  |  \- (javax.annotation:javax.annotation-api:jar:1.3.2:compile - omitted for duplicate)
+[INFO] |  +- com.google.api.grpc:gapic-google-cloud-storage-v2:jar:2.22.2-alpha:compile
+[INFO] |  |  \- (javax.annotation:javax.annotation-api:jar:1.3.2:compile - omitted for duplicate)
+[INFO] |  +- com.fasterxml.jackson.core:jackson-core:jar:2.14.2:compile
+[INFO] |  +- com.google.code.findbugs:jsr305:jar:3.0.2:compile
+[INFO] |  +- io.grpc:grpc-api:jar:1.54.0:compile
+[INFO] |  +- io.grpc:grpc-netty-shaded:jar:1.54.0:runtime
+[INFO] |  +- io.perfmark:perfmark-api:jar:0.26.0:runtime
+[INFO] |  +- io.grpc:grpc-core:jar:1.54.0:runtime
+[INFO] |  +- com.google.android:annotations:jar:4.1.1.4:runtime
+[INFO] |  +- org.codehaus.mojo:animal-sniffer-annotations:jar:1.23:runtime
+[INFO] |  +- io.grpc:grpc-stub:jar:1.54.0:compile
+[INFO] |  +- io.grpc:grpc-googleapis:jar:1.54.0:runtime
+[INFO] |  +- org.checkerframework:checker-qual:jar:3.32.0:compile
+[INFO] |  +- io.grpc:grpc-xds:jar:1.54.0:runtime
+[INFO] |  +- io.opencensus:opencensus-proto:jar:0.2.0:runtime
+[INFO] |  +- io.grpc:grpc-services:jar:1.54.0:runtime
+[INFO] |  +- com.google.re2j:re2j:jar:1.6:runtime
+[INFO] |  \- io.grpc:grpc-rls:jar:1.54.0:runtime
+[INFO] \- org.apache.hadoop:hadoop-common:jar:2.7.3:compile
+[INFO]    +- org.apache.hadoop:hadoop-annotations:jar:2.7.3:compile
+[INFO]    +- (com.google.guava:guava:jar:11.0.2:compile - omitted for conflict with 31.1-jre)
+[INFO]    +- commons-cli:commons-cli:jar:1.2:compile
+[INFO]    +- org.apache.commons:commons-math3:jar:3.1.1:compile
+[INFO]    +- xmlenc:xmlenc:jar:0.52:compile
+[INFO]    +- commons-httpclient:commons-httpclient:jar:3.1:compile
+[INFO]    |  +- (commons-logging:commons-logging:jar:1.0.4:compile - omitted for conflict with 1.1.3)
+[INFO]    |  \- (commons-codec:commons-codec:jar:1.2:compile - omitted for conflict with 1.15)
+[INFO]    +- (commons-codec:commons-codec:jar:1.4:compile - omitted for conflict with 1.15)
+[INFO]    +- commons-io:commons-io:jar:2.4:compile
+[INFO]    +- commons-net:commons-net:jar:3.1:compile
+[INFO]    +- commons-collections:commons-collections:jar:3.2.2:compile
+[INFO]    +- javax.servlet:servlet-api:jar:2.5:compile
+[INFO]    +- org.mortbay.jetty:jetty:jar:6.1.26:compile
+[INFO]    |  \- (org.mortbay.jetty:jetty-util:jar:6.1.26:compile - omitted for duplicate)
+[INFO]    +- org.mortbay.jetty:jetty-util:jar:6.1.26:compile
+[INFO]    +- javax.servlet.jsp:jsp-api:jar:2.1:runtime
+[INFO]    +- com.sun.jersey:jersey-core:jar:1.9:compile
+[INFO]    +- com.sun.jersey:jersey-json:jar:1.9:compile
+[INFO]    |  +- org.codehaus.jettison:jettison:jar:1.1:compile
+[INFO]    |  +- com.sun.xml.bind:jaxb-impl:jar:2.2.3-1:compile
+[INFO]    |  |  \- javax.xml.bind:jaxb-api:jar:2.2.2:compile
+[INFO]    |  |     +- javax.xml.stream:stax-api:jar:1.0-2:compile
+[INFO]    |  |     \- javax.activation:activation:jar:1.1:compile
+[INFO]    |  +- (org.codehaus.jackson:jackson-core-asl:jar:1.8.3:compile - omitted for conflict with 1.9.13)
+[INFO]    |  +- (org.codehaus.jackson:jackson-mapper-asl:jar:1.8.3:compile - omitted for conflict with 1.9.13)
+[INFO]    |  +- org.codehaus.jackson:jackson-jaxrs:jar:1.8.3:compile
+[INFO]    |  |  +- (org.codehaus.jackson:jackson-core-asl:jar:1.8.3:compile - omitted for conflict with 1.9.13)
+[INFO]    |  |  \- (org.codehaus.jackson:jackson-mapper-asl:jar:1.8.3:compile - omitted for conflict with 1.9.13)
+[INFO]    |  +- org.codehaus.jackson:jackson-xc:jar:1.8.3:compile
+[INFO]    |  |  +- (org.codehaus.jackson:jackson-core-asl:jar:1.8.3:compile - omitted for conflict with 1.9.13)
+[INFO]    |  |  \- (org.codehaus.jackson:jackson-mapper-asl:jar:1.8.3:compile - omitted for conflict with 1.9.13)
+[INFO]    |  \- (com.sun.jersey:jersey-core:jar:1.9:compile - omitted for duplicate)
+[INFO]    +- com.sun.jersey:jersey-server:jar:1.9:compile
+[INFO]    |  +- asm:asm:jar:3.1:compile
+[INFO]    |  \- (com.sun.jersey:jersey-core:jar:1.9:compile - omitted for duplicate)
+[INFO]    +- commons-logging:commons-logging:jar:1.1.3:compile
+[INFO]    +- log4j:log4j:jar:1.2.17:compile (scope not updated to compile)
+[INFO]    +- net.java.dev.jets3t:jets3t:jar:0.9.0:compile
+[INFO]    |  +- (commons-codec:commons-codec:jar:1.4:compile - omitted for conflict with 1.15)
+[INFO]    |  +- (commons-logging:commons-logging:jar:1.1.1:compile - omitted for conflict with 1.1.3)
+[INFO]    |  +- org.apache.httpcomponents:httpclient:jar:4.1.2:compile
+[INFO]    |  |  \- (org.apache.httpcomponents:httpcore:jar:4.1.2:compile - omitted for duplicate)
+[INFO]    |  +- org.apache.httpcomponents:httpcore:jar:4.1.2:compile
+[INFO]    |  \- com.jamesmurty.utils:java-xmlbuilder:jar:0.4:compile
+[INFO]    +- commons-lang:commons-lang:jar:2.6:compile
+[INFO]    +- commons-configuration:commons-configuration:jar:1.6:compile
+[INFO]    |  +- (commons-collections:commons-collections:jar:3.2.1:compile - omitted for conflict with 3.2.2)
+[INFO]    |  +- (commons-lang:commons-lang:jar:2.4:compile - omitted for conflict with 2.6)
+[INFO]    |  +- (commons-logging:commons-logging:jar:1.1.1:compile - omitted for conflict with 1.1.3)
+[INFO]    |  +- commons-digester:commons-digester:jar:1.8:compile
+[INFO]    |  |  +- commons-beanutils:commons-beanutils:jar:1.7.0:compile
+[INFO]    |  |  |  \- (commons-logging:commons-logging:jar:1.0.3:compile - omitted for conflict with 1.1.3)
+[INFO]    |  |  \- (commons-logging:commons-logging:jar:1.1:compile - omitted for conflict with 1.1.3)
+[INFO]    |  \- commons-beanutils:commons-beanutils-core:jar:1.8.0:compile
+[INFO]    |     \- (commons-logging:commons-logging:jar:1.1.1:compile - omitted for conflict with 1.1.3)
+[INFO]    +- org.slf4j:slf4j-api:jar:1.7.10:compile
+[INFO]    +- org.slf4j:slf4j-log4j12:jar:1.7.10:compile (scope not updated to compile)
+[INFO]    |  +- (org.slf4j:slf4j-api:jar:1.7.10:compile - omitted for duplicate)
+[INFO]    |  \- (log4j:log4j:jar:1.2.17:compile - omitted for duplicate)
+[INFO]    +- org.codehaus.jackson:jackson-core-asl:jar:1.9.13:compile
+[INFO]    +- org.codehaus.jackson:jackson-mapper-asl:jar:1.9.13:compile
+[INFO]    |  \- (org.codehaus.jackson:jackson-core-asl:jar:1.9.13:compile - omitted for duplicate)
+[INFO]    +- org.apache.avro:avro:jar:1.7.4:compile
+[INFO]    |  +- (org.codehaus.jackson:jackson-core-asl:jar:1.8.8:compile - omitted for conflict with 1.9.13)
+[INFO]    |  +- (org.codehaus.jackson:jackson-mapper-asl:jar:1.8.8:compile - omitted for conflict with 1.9.13)
+[INFO]    |  +- com.thoughtworks.paranamer:paranamer:jar:2.3:compile
+[INFO]    |  +- org.xerial.snappy:snappy-java:jar:1.0.4.1:compile
+[INFO]    |  +- (org.apache.commons:commons-compress:jar:1.4.1:compile - omitted for duplicate)
+[INFO]    |  \- (org.slf4j:slf4j-api:jar:1.6.4:compile - omitted for conflict with 1.7.10)
+[INFO]    +- (com.google.protobuf:protobuf-java:jar:2.5.0:compile - omitted for conflict with 3.21.12)
+[INFO]    +- (com.google.code.gson:gson:jar:2.2.4:compile - omitted for conflict with 2.10.1)
+[INFO]    +- org.apache.hadoop:hadoop-auth:jar:2.7.3:compile
+[INFO]    |  +- (org.slf4j:slf4j-api:jar:1.7.10:compile - omitted for duplicate)
+[INFO]    |  +- (commons-codec:commons-codec:jar:1.4:compile - omitted for conflict with 1.15)
+[INFO]    |  +- (log4j:log4j:jar:1.2.17:runtime - omitted for duplicate)
+[INFO]    |  +- (org.slf4j:slf4j-log4j12:jar:1.7.10:runtime - omitted for duplicate)
+[INFO]    |  +- (org.apache.httpcomponents:httpclient:jar:4.2.5:compile - omitted for conflict with 4.1.2)
+[INFO]    |  +- org.apache.directory.server:apacheds-kerberos-codec:jar:2.0.0-M15:compile
+[INFO]    |  |  +- org.apache.directory.server:apacheds-i18n:jar:2.0.0-M15:compile
+[INFO]    |  |  |  \- (org.slf4j:slf4j-api:jar:1.7.5:compile - omitted for conflict with 1.7.10)
+[INFO]    |  |  +- org.apache.directory.api:api-asn1-api:jar:1.0.0-M20:compile
+[INFO]    |  |  |  \- (org.slf4j:slf4j-api:jar:1.7.5:compile - omitted for conflict with 1.7.10)
+[INFO]    |  |  +- org.apache.directory.api:api-util:jar:1.0.0-M20:compile
+[INFO]    |  |  |  \- (org.slf4j:slf4j-api:jar:1.7.5:compile - omitted for conflict with 1.7.10)
+[INFO]    |  |  \- (org.slf4j:slf4j-api:jar:1.7.5:compile - omitted for conflict with 1.7.10)
+[INFO]    |  +- (org.apache.zookeeper:zookeeper:jar:3.4.6:compile - omitted for duplicate)
+[INFO]    |  \- org.apache.curator:curator-framework:jar:2.7.1:compile
+[INFO]    |     +- (org.apache.curator:curator-client:jar:2.7.1:compile - omitted for duplicate)
+[INFO]    |     +- (org.apache.zookeeper:zookeeper:jar:3.4.6:compile - omitted for duplicate)
+[INFO]    |     \- (com.google.guava:guava:jar:16.0.1:compile - omitted for conflict with 31.1-jre)
+[INFO]    +- com.jcraft:jsch:jar:0.1.42:compile
+[INFO]    +- org.apache.curator:curator-client:jar:2.7.1:compile
+[INFO]    |  +- (org.slf4j:slf4j-api:jar:1.7.6:compile - omitted for conflict with 1.7.10)
+[INFO]    |  +- (org.apache.zookeeper:zookeeper:jar:3.4.6:compile - omitted for duplicate)
+[INFO]    |  \- (com.google.guava:guava:jar:16.0.1:compile - omitted for conflict with 31.1-jre)
+[INFO]    +- org.apache.curator:curator-recipes:jar:2.7.1:compile
+[INFO]    |  +- (org.apache.curator:curator-framework:jar:2.7.1:compile - omitted for duplicate)
+[INFO]    |  +- (org.apache.zookeeper:zookeeper:jar:3.4.6:compile - omitted for duplicate)
+[INFO]    |  \- (com.google.guava:guava:jar:16.0.1:compile - omitted for conflict with 31.1-jre)
+[INFO]    +- (com.google.code.findbugs:jsr305:jar:3.0.0:compile - omitted for conflict with 3.0.2)
+[INFO]    +- org.apache.htrace:htrace-core:jar:3.1.0-incubating:compile
+[INFO]    +- org.apache.zookeeper:zookeeper:jar:3.4.6:compile
+[INFO]    |  +- (org.slf4j:slf4j-api:jar:1.6.1:compile - omitted for conflict with 1.7.10)
+[INFO]    |  +- (org.slf4j:slf4j-log4j12:jar:1.6.1:compile - omitted for conflict with 1.7.10)
+[INFO]    |  +- (log4j:log4j:jar:1.2.16:compile - omitted for conflict with 1.2.17)
+[INFO]    |  \- io.netty:netty:jar:3.7.0.Final:compile
+[INFO]    \- org.apache.commons:commons-compress:jar:1.4.1:compile
+[INFO]       \- org.tukaani:xz:jar:1.0:compile
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.627 s
+[INFO] Finished at: 2026-04-27T19:02:48+09:00
+[INFO] ------------------------------------------------------------------------

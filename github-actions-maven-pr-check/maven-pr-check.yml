@@ -1,0 +1,52 @@
+# =============================================================================
+# 이 파일은 참고용 입니다.
+#
+# 다른 분들의 작업에 영향 주지 않으려고 현재 디렉터리 안에 보관했습니다
+#
+# 실제 동작 시연은 제 개인 fork 에서 진행했고,
+# 결과 화면은 ./images/ 폴더의 스크린샷 파일로 첨부했습니다.
+#
+# =============================================================================
+
+name: Maven PR Check
+
+# 언제 돌릴지 정의
+#  - PR 이 열리거나 새 커밋이 push 될 때
+#  - main 브랜치에 직접 push 될 때 (보통 머지 시점)
+on:
+  pull_request:
+    paths:
+      - 'github-actions-maven-pr-check/**'
+      - '.github/workflows/maven-pr-check.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'github-actions-maven-pr-check/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # 모든 step 의 기본 작업 디렉터리를 예시 폴더로 고정
+    # 안 그러면 step 마다 cd 를 매번 적어줘야 해서 지저분해짐
+    defaults:
+      run:
+        working-directory: github-actions-maven-pr-check
+
+    steps:
+      # 1. PR 브랜치를 러너로 체크아웃
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. JDK 17 설치 + ~/.m2 캐시까지 설정
+      #    cache: (maven) 의존성 다운로드 캐시되어 두 번째 실행부터 빌드 시간 절반 이하로 단축
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      # 3. 컴파일 + 테스트
+      #    -B (batch mode) 는 CI 환경에서 권장 — 진행률 출력 같은 노이즈를 끔
+      - name: Maven verify
+        run: mvn -B clean verify

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.repository.MemberMapper">
+
+    <!-- 동적 쿼리나 복잡한 쿼리들은 MyBatis를 통해 직접 작성 -->
+    <select id="getComplexMemberStats" resultType="com.example.dto.MemberStatsDto">
+        SELECT
+            m.id,
+            m.name,
+            m.is_deleted AS isDeleted,
+            COUNT(l.id) AS totalLoginCount,
+            MAX(l.access_date) AS lastAccessDate
+        FROM members m
+        LEFT JOIN member_login_history l
+            ON l.member_id = m.id
+            <if test="fromDate != null and fromDate != ''">
+                AND l.access_date &gt;= #{fromDate}
+            </if>
+        <where>
+            m.id = #{memberId}
+            <if test="isDeleted != null">
+                AND m.is_deleted = #{isDeleted}
+            </if>
+        </where>
+        GROUP BY m.id, m.name, m.is_deleted
+    </select>
+
+</mapper>

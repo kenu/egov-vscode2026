@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  [예제 4] Quartz 클러스터 설정 (eGovFrame XML 스타일)
+  파일 위치: src/main/resources/egovframework/spring/context-scheduling.xml
+
+  핵심:
+    - JobDetail / Trigger / SchedulerFactoryBean 으로 구성
+    - dataSource 와 quartzProperties 를 SchedulerFactoryBean 에 주입하면
+      JDBCJobStore + 클러스터링 활성
+    - QRTZ_* 테이블이 미리 생성되어 있어야 함
+      (Quartz 배포본의 tables_<dbms>.sql 사용)
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+         http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 1. 실제 작업이 들어있는 비즈니스 빈 -->
+    <bean id="settlementJobBean" class="egovframework.example.sample.scheduler.SettlementJobBean"/>
+
+    <!-- 2. JobDetail: 어떤 빈의 어떤 메서드를 실행할지 정의 -->
+    <bean id="settlementJobDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="settlementJobBean"/>
+        <property name="targetMethod" value="execute"/>
+        <!-- 클러스터 환경에서는 반드시 false: 직전 작업이 끝날 때까지 다음 실행을 막음 -->
+        <property name="concurrent" value="false"/>
+    </bean>
+
+    <!-- 3. Trigger: 언제 실행할지 정의 (Cron) -->
+    <bean id="settlementTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="settlementJobDetail"/>
+        <property name="cronExpression" value="0 0 1 * * ?"/>
+        <!-- 매일 01:00:00 -->
+    </bean>
+
+    <!-- 4. SchedulerFactoryBean: 클러스터링 / JDBCJobStore 활성 -->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="triggers">
+            <list>
+                <ref bean="settlementTrigger"/>
+            </list>
+        </property>
+        <property name="quartzProperties">
+            <props>
+                <!-- 인스턴스 식별 -->
+                <prop key="org.quartz.scheduler.instanceName">EgovScheduler</prop>
+                <prop key="org.quartz.scheduler.instanceId">AUTO</prop>
+
+                <!-- 스레드 풀 -->
+                <prop key="org.quartz.threadPool.class">org.quartz.simpl.SimpleThreadPool</prop>
+                <prop key="org.quartz.threadPool.threadCount">5</prop>
+
+                <!-- ★ 클러스터링 핵심: JDBC JobStore -->
+                <prop key="org.quartz.jobStore.class">org.quartz.impl.jdbcjobstore.JobStoreTX</prop>
+                <prop key="org.quartz.jobStore.driverDelegateClass">
+                    org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+                </prop>
+                <prop key="org.quartz.jobStore.tablePrefix">QRTZ_</prop>
+                <prop key="org.quartz.jobStore.isClustered">true</prop>
+                <prop key="org.quartz.jobStore.clusterCheckinInterval">20000</prop>
+                <prop key="org.quartz.jobStore.useProperties">false</prop>
+            </props>
+        </property>
+    </bean>
+
+</beans>
+
+<!--
+  ┌─────────────────────────────────────────────────────┐
+  │ Quartz 클러스터링이 보장해주는 것                       │
+  ├─────────────────────────────────────────────────────┤
+  │ ✔ 같은 트리거는 노드 중 단 한 곳에서만 실행             │
+  │ ✔ 노드가 죽어도 다른 노드가 트리거를 인계 (failover)    │
+  │ ✔ 작업 이력이 QRTZ_FIRED_TRIGGERS 에 남아 추적 가능     │
+  │ ✔ Misfire(놓친 실행) 처리 정책 지정 가능                │
+  └─────────────────────────────────────────────────────┘
+-->

@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "format": "prettier --write \"README.md\" \"src/main/resources/**/*.yml\"",
+    "format:check": "prettier --check \"README.md\" \"src/main/resources/**/*.yml\""
+  },
+  "devDependencies": {
+    "prettier": "3.3.3"
+  }
+}
