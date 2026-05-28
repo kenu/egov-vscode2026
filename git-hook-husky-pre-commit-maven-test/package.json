@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "scripts": {
+    "prepare": "cd .. && husky git-hook-husky-pre-commit-maven-test/.husky"
+  },
+  "devDependencies": {
+    "husky": "^9.0.0"
+  }
+}
