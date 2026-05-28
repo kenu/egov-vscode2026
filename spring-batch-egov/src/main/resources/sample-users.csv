@@ -1,0 +1,11 @@
+id,name,email,department
+1,홍길동,hong@example.com,개발팀
+2,김철수,kim@example.com,기획팀
+3,이영희,lee@example.com,디자인팀
+4,박민준,park@example.com,개발팀
+5,최수현,,QA팀
+6,정다은,jung@example.com,개발팀
+7,윤재원,yoon@example.com,운영팀
+8,강민서,kang@example.com,개발팀
+9,조현우,cho@example.com,기획팀
+10,신유진,shin@example.com,디자인팀
