@@ -2,7 +2,7 @@ package com.example.springbatchegov.batch;
 
 import com.example.springbatchegov.domain.User;
 import com.example.springbatchegov.domain.UserCsvDto;
-import org.springframework.batch.item.ItemProcessor;
+import org.springframework.batch.infrastructure.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;

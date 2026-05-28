@@ -1,8 +1,8 @@
 package com.example.springbatchegov.batch;
 
 import com.example.springbatchegov.domain.User;
-import org.springframework.batch.item.Chunk;
-import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.infrastructure.item.Chunk;
+import org.springframework.batch.infrastructure.item.ItemWriter;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
