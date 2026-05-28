@@ -15,11 +15,11 @@ OSSCA egov-vscode 2026 / Issue #3
 
 - 이상적: Docker 같은 공통 실행 환경으로 버전과 실행 조건 통일
 - 현실: 모든 프로젝트가 그렇게 구성되지는 않음
-- 문제: JDK, Maven, PATH, OS 차이로 같은 코드도 실행 결과가 달라질 수 있음
-- 결론: 환경을 완전히 통일하지 못하더라도, **커밋 전 테스트 규칙**은 만들 수 있음
+- 문제: JDK, Maven 실행 방식, IDE 실행 방식 차이로 검증 결과가 달라질 수 있음
+- 결론: 환경을 완전히 통일하지 못하더라도, **commit 전 테스트 규칙**은 만들 수 있음
 
 > 이번 발표는 "환경 통일" 자체보다  
-> "공통 환경이 부족할 때 최소한의 품질 게이트를 만드는 방법"에 집중합니다.
+> "공통 환경이 부족할 때 commit 전 최소 품질 게이트를 만드는 방법"에 집중합니다.
 
 ---
 
@@ -34,20 +34,18 @@ Docker나 Dev Container처럼 공통 실행 환경이 있으면:
 같은 테스트 결과
 ```
 
-하지만 그런 환경이 없으면 팀원마다 검증 방식이 달라집니다.
+하지만 그런 환경이 없으면 팀원마다 검증 방식이 달라질 수 있습니다.
 
 ```text
 개발자 A: ./mvnw test 실행 후 commit
-개발자 B: 로컬 mvn으로 실행해 환경 차이 발생
+개발자 B: 로컬 mvn으로 실행
 개발자 C: IDE에서 일부 테스트만 실행
 개발자 D: 테스트를 실행하지 않고 commit
    ↓
 commit은 모두 가능
    ↓
-PR / CI에서 뒤늦게 문제 발견
+문제가 뒤늦게 발견됨
 ```
-
-이 발표의 목표는 Docker를 대체하는 것이 아닙니다.
 
 > 공통 개발환경이 부족하더라도  
 > commit 전에는 최소한 같은 명령인 `./mvnw test`를 강제하자는 것입니다.
@@ -65,32 +63,34 @@ Husky가 .husky/pre-commit 실행
    ↓
 ./mvnw test
    ↓
-성공하면 commit 진행 / 실패하면 commit 차단
-   ↓
-CI에서 ./mvnw verify
+성공하면 commit 진행
+실패하면 commit 차단
 ```
 
-- 로컬: 빠른 1차 차단
-- CI: 더 강한 최종 검증
+- 개발자가 직접 테스트 실행을 기억하지 않아도 됨
+- commit 직전에 같은 테스트 명령이 자동 실행됨
+- 이번 예제에서 실제 구현한 것은 `pre-commit -> ./mvnw test`
 
 ---
 
 ## 4. Git Hook이란?
 
-Git Hook은 Git 명령이 실행되는 특정 시점에 자동으로 실행되는 스크립트입니다.
+Git Hook은 Git 작업의 특정 시점에 자동으로 실행되는 스크립트입니다.
 
-이번 예제에서 사용하는 Hook은 `pre-commit`입니다.
+예를 들어 commit 전, commit 메시지 작성 후, push 전 같은 시점에 실행할 수 있습니다.
+
+이번 예제에서는 commit 직전에 실행되는 `pre-commit` Hook을 사용합니다.
 
 ```text
 git commit
    ↓
-pre-commit hook 실행
+pre-commit Hook 실행
    ↓
-성공하면 commit 진행
-실패하면 commit 중단
+테스트 성공 -> commit 진행
+테스트 실패 -> commit 중단
 ```
 
-즉 `pre-commit`은 commit이 실제로 만들어지기 직전에 실행되는 품질 게이트입니다.
+즉 `pre-commit`은 commit 직전에 테스트를 자동 실행할 수 있는 지점입니다.
 
 ---
 
@@ -130,7 +130,7 @@ package.json
 정리하면:
 
 - Git Hook: 언제 검사할지 결정
-- Maven: 무엇을 검사할지 결정
+- Maven: 테스트 실행
 - Husky: Hook 규칙을 팀 프로젝트 파일로 관리
 
 ---
@@ -143,47 +143,14 @@ package.json
 
 1. `.git/hooks`는 로컬 저장소 내부라 버전 관리가 불편함
 2. Husky는 `.husky/`를 프로젝트 안에서 관리하게 해줌
-3. 팀원이 clone 받아도 같은 규칙을 재현하기 쉬움
+3. 팀원이 clone 받아도 같은 Hook 파일을 함께 받을 수 있음
 
 즉 Husky의 핵심은 Hook 실행 자체보다  
 **Hook을 팀 규칙으로 관리하는 방식**입니다.
 
 ---
 
-## 8. 커밋 전에 무엇을 실행할 것인가?
-
-| 항목 | `test` | `verify` |
-|---|---|---|
-| 목적 | 단위 테스트 중심 | 더 넓은 검증 |
-| 속도 | 비교적 빠름 | 더 무거울 수 있음 |
-| 추천 위치 | `pre-commit` | `pre-push` 또는 CI |
-
-제가 조사한 기준으로는:
-
-- `pre-commit`: `./mvnw test`
-- `pre-push` 또는 CI: `./mvnw verify`
-
----
-
-## 9. 왜 `mvn`이 아니라 `mvnw`인가?
-
-- 개발자마다 Maven 버전이 다를 수 있음
-- PATH 설정이 다를 수 있음
-- 공통 환경이 없을수록 이 차이가 더 크게 드러남
-
-그래서 추천:
-
-```bash
-./mvnw test
-```
-
-- 프로젝트가 요구하는 Maven 버전으로 실행
-- 로컬 환경 차이를 줄임
-- Hook에서도 같은 실행 경로 사용 가능
-
----
-
-## 10. 가장 기본적인 설정 흐름
+## 8. 가장 기본적인 설정 흐름
 
 ```bash
 npm install --save-dev husky
@@ -199,11 +166,11 @@ npx husky init
 ```
 
 - `.husky/pre-commit` 생성
-- `prepare`로 팀원 환경에서도 Hook 초기화
+- `prepare`로 Husky Hook 경로 초기화
 
 ---
 
-## 11. 기본형 Hook 예시
+## 9. 기본형 Hook 예시
 
 ```sh
 #!/usr/bin/env sh
@@ -220,7 +187,7 @@ echo "[pre-commit] Maven unit test 실행"
 
 ---
 
-## 12. 이 프로젝트의 Husky 설정
+## 10. 이 프로젝트의 Husky 설정
 
 `package.json`:
 
@@ -241,7 +208,7 @@ echo "[pre-commit] Maven unit test 실행"
 
 ---
 
-## 13. 이 프로젝트의 pre-commit Hook
+## 11. 이 프로젝트의 pre-commit Hook
 
 `.husky/pre-commit`:
 
@@ -264,7 +231,7 @@ cd git-hook-husky-pre-commit-maven-test
 
 ---
 
-## 14. 시연 시나리오
+## 12. 시연 시나리오
 
 서비스 코드:
 
@@ -280,7 +247,7 @@ public void validateName(String name) {
 
 ```java
 assertThrows(IllegalArgumentException.class,
-    () -> memberService.validateName("A"));
+    () -> memberValidationService.validateName("A"));
 ```
 
 - 의도적으로 조건을 잘못 바꾸면 테스트가 실패
@@ -292,7 +259,7 @@ assertThrows(IllegalArgumentException.class,
 
 ---
 
-## 15. 실패 시연 방법
+## 13. 실패 시연 방법
 
 1. 정상 테스트 확인
 
@@ -333,7 +300,7 @@ BUILD FAILURE
 
 ---
 
-## 16. 성공 시연 방법
+## 14. 성공 시연 방법
 
 서비스 코드를 다시 정상으로 되돌립니다.
 
@@ -363,35 +330,6 @@ git commit -m "test: pre-commit hook demo"
 핵심:
 
 > 같은 commit 명령이라도 테스트 성공 여부에 따라 commit 진행/차단이 결정됩니다.
-
----
-
-## 17. 한계와 트러블슈팅
-
-- Hook이 아예 안 도는 경우
-  - `pre-commit` 파일명, `core.hooksPath` 확인
-- GUI에서만 `command not found`
-  - PATH / Node 초기화 문제 가능
-- 커밋이 너무 느림
-  - `test`는 로컬, `verify`는 CI로 분리
-- `skipTests`, `maven.test.skip=true`
-  - Hook이 있어도 품질 게이트가 무력화될 수 있음
-- `git commit --no-verify`
-  - Hook은 우회 가능
-
----
-
-## 18. 그래서 제 추천안은
-
-- 공통 환경이 약한 프로젝트일수록 `mvnw`를 우선 사용
-- `pre-commit`에는 `./mvnw test`
-- 더 무거운 검증은 CI의 `./mvnw verify`
-- Husky로 Hook을 프로젝트 규칙으로 관리
-- Hook만 믿지 말고 CI + Branch Protection까지 연결
-
-한 줄 요약:
-
-> 테스트를 습관이 아니라 규칙으로 바꾸는 것이 핵심입니다.
 
 ---
 
